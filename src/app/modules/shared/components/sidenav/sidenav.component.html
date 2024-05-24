@@ -1,0 +1,33 @@
+<div class="dashboard-container">
+    <mat-toolbar color="primary">
+        <button mat-icon-button>
+            <mat-icon>
+                menu
+            </mat-icon>
+        </button>
+        <img src="../assets/images/logo.png" class="h-8 mx-2" alt="CAAS Logo" />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Assinet</span>
+        
+        <div class="ml-auto">
+            <ul class="flex items-center">
+                <li>
+                    <button mat-icon-button>
+                        <mat-icon>help_outline</mat-icon>
+                    </button>
+                </li>
+                <li>
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        <mat-icon>person_outline</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <mat-icon>exit_to_app</mat-icon>
+                        Cerrar Sessión
+
+                    </mat-menu>
+                </li>
+            </ul>
+        </div>
+    </mat-toolbar>    
+    <router-outlet></router-outlet>
+</div>
+
