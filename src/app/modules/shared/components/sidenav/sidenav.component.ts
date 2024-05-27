@@ -12,8 +12,8 @@ export class SidenavComponent {
 
   menuNav = [
     {name: "Home", route: "home", icon: "home"},
-    {name: "Categorías", route: "category", icon: "category"},
-    {name: "Productos", route: "product", icon: "production_quantity_limits"}
+    {name: "Asiento RV", route: "asiento-rv", icon: "category"},
+    {name: "Asientos RC", route: "asiento-rc", icon: "production_quantity_limits"}
   ]
 
   constructor(media : MediaMatcher){
