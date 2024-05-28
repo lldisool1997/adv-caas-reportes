@@ -1,23 +1,27 @@
+// Tipo que define a estrutura de metadados
+export type Metadata = {
+  code: string;
+  message: string;
+};
 
-export interface httpResponseList<T, key>{
-  metadata : metadata[],
-  response: responseList<T, key>
-}
+// Tipo que define a estrutura de uma resposta HTTP com lista
+export type HttpResponseList<T, K extends string> = {
+  metadata: Metadata[];
+  response: ResponseList<T, K>;
+};
 
-export interface httpResponse<T, key>{
-  metadata : metadata[],
-  response: response<T, key>
-}
+// Tipo que define a estrutura de uma resposta HTTP
+export type HttpResponse<T, K extends string> = {
+  metadata: Metadata[];
+  response: Response<T, K>;
+};
 
-export interface metadata{
-    code: string,
-    message: string
-}
+// Tipo que define a estrutura da resposta
+export type Response<T, K extends string> = {
+  [key in K]: T;
+};
 
-export interface response<T, key>{
-  [key: string]: T
-}
-
-export interface responseList<T, key>{
-    [key: string]: T[]
-}
+// Tipo que define a estrutura de uma lista de respostas
+export type ResponseList<T, K extends string> = {
+  [key in K]: T[];
+};
