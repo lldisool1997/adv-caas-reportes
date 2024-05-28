@@ -22,7 +22,14 @@
         
 
         <div class="w-1/2 flex p-2.5 space-x-2.5">
-          <button mat-raised-button color="primary">Generar Token</button>
+          <button mat-raised-button color="primary" [disabled]="statusLoadingToken" (click)="obtenerToken()">
+            <ng-container *ngIf="statusLoadingToken">
+                Generando token
+            </ng-container>
+            <ng-container *ngIf="!statusLoadingToken">
+                Generar Token
+            </ng-container>
+           </button>
           <button mat-raised-button color="primary" (click)="buscarAsientoDia()">Buscar Asiento Dia</button>
         </div>
         

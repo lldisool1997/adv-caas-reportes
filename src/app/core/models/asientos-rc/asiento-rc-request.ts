@@ -12,3 +12,7 @@ export interface dataAsientosRC {
     sendMemo: string;
     descripcion?: string; 
   }
+
+export interface dataToken{
+    token : string;
+}

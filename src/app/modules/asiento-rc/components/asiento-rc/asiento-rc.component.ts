@@ -28,6 +28,8 @@ export class AsientoRcComponent implements OnInit {
 
   statusLoading: boolean = false;
 
+  statusLoadingToken : boolean = false;
+
   constructor(
     private asientoRcService : AsientoRcService, 
     private toast : ToastrService,
@@ -38,30 +40,30 @@ export class AsientoRcComponent implements OnInit {
   }
 
   ngOnInit(): void {    
-  }  
+  }
 
-  getAsientoRc(){
-    
-    this.asientoRcService.getAsientoRC({fecha:'26052024'}).subscribe(response=>{
+  obtenerToken():void{
+    this.statusLoadingToken = true;
+    this.asientoRcService.getToken().subscribe( response =>{
 
-      console.log(response);
+      this.statusLoadingToken = false;
+
       if(response.metadata[0].code == "00"){
-        this.toast.success(response.metadata[0].message,'Asientos Compras Dia')       
-        const dataAssiRC : dataAsientosRC[] = [];
+        this.toast.success(response.metadata[0].message,'Asientos Compras Dia') 
+        this.formulario.get("token")?.setValue(String(response.response['token']));      
 
-        let lisAssiRC = response.response.asientos;
-        lisAssiRC.forEach((el : dataAsientosRC) => {
-          dataAssiRC.push(el);
-        })
-        this.dataSource = new MatTableDataSource<dataAsientosRC>(dataAssiRC);        
-        this.dataSource.paginator = this.paginator;
+       
 
       }else{
 
         this.toast.error('Error al cargar los datos', 'Mensaje de Error');
 
       }
+
+      console.log(response);
+
     })
+    
   }
 
   buscarAsientoDia():void{
@@ -75,7 +77,7 @@ export class AsientoRcComponent implements OnInit {
         this.toast.success(response.metadata[0].message,'Asientos Compras Dia')       
         const dataAssiRC : dataAsientosRC[] = [];
 
-        let lisAssiRC = response.response.asientos;
+        let lisAssiRC = response.response['asientos'];
         lisAssiRC.forEach((el : dataAsientosRC) => {
           dataAssiRC.push(el);
         })
