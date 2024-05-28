@@ -40,6 +40,10 @@ export class AsientoRcComponent implements OnInit {
   }
 
   ngOnInit(): void {    
+    const token = localStorage.getItem("token");
+    if(token){
+      this.formulario.get("token")?.setValue(String(token));  
+    }
   }
 
   obtenerToken():void{
@@ -51,8 +55,7 @@ export class AsientoRcComponent implements OnInit {
       if(response.metadata[0].code == "00"){
         this.toast.success(response.metadata[0].message,'Asientos Compras Dia') 
         this.formulario.get("token")?.setValue(String(response.response['token']));  
-        localStorage.setItem("token", "genToken");        
-        localStorage.getItem("token")      
+        localStorage.setItem("token", String(response.response['token']));      
 
       }else{
 
@@ -89,6 +92,11 @@ export class AsientoRcComponent implements OnInit {
       }
     })
 
+  }
+
+
+  enviarAasinet(): void{
+    alert("envia");
   }
 
 }

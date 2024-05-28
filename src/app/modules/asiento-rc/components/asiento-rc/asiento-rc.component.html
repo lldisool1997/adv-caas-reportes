@@ -31,6 +31,7 @@
             </ng-container>
            </button>
           <button mat-raised-button color="primary" (click)="buscarAsientoDia()">Buscar Asiento Dia</button>
+          <button mat-raised-button color="primary" (click)="enviarAasinet()" [disabled]="!formulario.get('token')?.value">Enviar Aasinet</button>
         </div>
         
       </mat-card-header>
