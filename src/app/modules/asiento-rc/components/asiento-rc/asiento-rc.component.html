@@ -1,1 +1,90 @@
-<p>asiento-rc works!</p>
+<mat-card>
+    <form [formGroup]="formulario">
+    <h2 class="text-3xl font-bold mb-4 text-center">Asiento de Compras Diario</h2>
+    <mat-card-header>
+        
+            <div class="w-1/5 flex p-2.5 space-x-2.5">
+                <mat-form-field appearance="fill">
+                    <mat-label>Fecha</mat-label>
+                    <input matInput [matDatepicker]="picker" placeholder="Elija una fecha" formControlName="fecha">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>           
+            </div>
+    
+            <div class="w-2/5 flex p-2.5 space-x-2.5">
+                <mat-form-field appearance="fill" class="w-96">
+                    <mat-label>Obtener Token</mat-label>
+                    <input matInput #input formControlName="token">
+                </mat-form-field>
+            </div>
+       
+        
+
+        <div class="w-1/2 flex p-2.5 space-x-2.5">
+          <button mat-raised-button color="primary">Generar Token</button>
+          <button mat-raised-button color="primary" (click)="buscarAsientoDia()">Buscar Asiento Dia</button>
+        </div>
+        
+      </mat-card-header>
+    </form>
+
+    <div *ngIf="statusLoading" class="flex items-center justify-center">
+        <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mr-2"></div>
+        Cargango info
+    </div>
+
+    <div *ngIf="!statusLoading">
+        <mat-card-content>
+            <table mat-table [dataSource]="dataSource" class="mat-cell">
+                <ng-container matColumnDef="accountCode">
+                    <th mat-header-cell *matHeaderCellDef>AccountCode</th>
+                    <td mat-cell *matCellDef="let element">{{element.accountCode}}</td>                
+                </ng-container>
+    
+                <ng-container matColumnDef="subAccountCode">
+                    <th mat-header-cell *matHeaderCellDef>SubAccountCode</th>
+                    <td mat-cell *matCellDef="let element">{{element.subAccountCode}}</td>                
+                </ng-container>
+    
+                <ng-container matColumnDef="fundcode">
+                    <th mat-header-cell *matHeaderCellDef>Fundcode</th>
+                    <td mat-cell *matCellDef="let element">{{element.fundcode}}</td>                
+                </ng-container>
+    
+                <ng-container matColumnDef="functionCode">
+                    <th mat-header-cell *matHeaderCellDef>FunctionCode</th>
+                    <td mat-cell *matCellDef="let element">{{element.functionCode}}</td>                
+                </ng-container>
+    
+                <ng-container matColumnDef="restriccionCode">
+                    <th mat-header-cell *matHeaderCellDef>RestriccionCode</th>
+                    <td mat-cell *matCellDef="let element">{{element.restriccionCode}}</td>                
+                </ng-container>
+    
+                <ng-container matColumnDef="entityValue">
+                    <th mat-header-cell *matHeaderCellDef>EntityValue</th>
+                    <td mat-cell *matCellDef="let element">{{element.entityValue}}</td>                
+                </ng-container>
+    
+                <ng-container matColumnDef="sendMemo">
+                    <th mat-header-cell *matHeaderCellDef>SendMemo</th>
+                    <td mat-cell *matCellDef="let element">{{element.sendMemo}}</td>                
+                </ng-container>
+    
+                <ng-container matColumnDef="descripcion">
+                    <th mat-header-cell *matHeaderCellDef>Descripcion</th>
+                    <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>                
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns : displayColumns;"></tr>
+                       
+            </table>
+            <mat-paginator #paginador [pageSizeOptions]="[10, 30, 50]" showFirstLastButtons> </mat-paginator>
+        </mat-card-content>
+        <mat-card-footer></mat-card-footer>
+    </div>
+   
+    
+</mat-card>
