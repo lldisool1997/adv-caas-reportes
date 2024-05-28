@@ -50,17 +50,15 @@ export class AsientoRcComponent implements OnInit {
 
       if(response.metadata[0].code == "00"){
         this.toast.success(response.metadata[0].message,'Asientos Compras Dia') 
-        this.formulario.get("token")?.setValue(String(response.response['token']));      
-
-       
+        this.formulario.get("token")?.setValue(String(response.response['token']));  
+        localStorage.setItem("token", "genToken");        
+        localStorage.getItem("token")      
 
       }else{
 
         this.toast.error('Error al cargar los datos', 'Mensaje de Error');
 
-      }
-
-      console.log(response);
+      }     
 
     })
     
