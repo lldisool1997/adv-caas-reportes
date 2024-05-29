@@ -36,4 +36,9 @@ export class EnviarAsientoRCComponent {
         descripcion: ''
       });
     }
+
+    sendAsientoRcAAsinet():void{
+      
+
+    }
 }
