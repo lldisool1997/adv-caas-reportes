@@ -25,3 +25,86 @@ export type Response<T, K extends string> = {
 export type ResponseList<T, K extends string> = {
   [key in K]: T[];
 };
+
+export type HttpResponseAAsinet<T, K extends string> = {
+  code: string;
+  Context: any;
+  Component: any;
+  Result: T | null;
+  Messages: string;
+};
+
+export interface ApiResponse<T> {
+  code: string;
+  Context: any;
+  Component: any;
+  Result: T | null;
+  Messages: string;
+}
+
+export interface PeriodStatusInfo {
+  ClosedBy: string;
+  ClosedDate: string;
+  Month: string;
+  Year: string;
+}
+
+export interface ArrayOfPeriodStatusInfo {
+  PeriodStatusInfo: PeriodStatusInfo[];
+}
+
+export type ApiResult = ArrayOfPeriodStatusInfo | ArrayOfAccount | ExternalMultipleAccountingResult |null;
+
+export interface ExternalMultipleAccountingResult{
+  JournalInfo : JournalInfo[];
+}
+
+export interface JournalInfo{
+  ItemId :string,
+  JournalCode : string,
+  JournalDate : string,
+  JournalGuid :string,
+  JournalTypeCode : string   
+}
+
+export interface ArrayOfAccount {
+  Account: Account[];
+}
+
+export interface Account {
+  Code: string;
+  Name: string;
+  AcceptEntries: string;
+  Id: string;
+  IsActive: string;
+  Nature: string;
+  ParentCode: number;
+  ParentId: string;
+  Restrictions: {
+    BaseEntity: BaseEntity[];
+  };
+  SubAccountType: SubAccountType;
+}
+
+export interface Restrictions{
+  baseEntity : BaseEntity[]
+}
+
+export interface BaseEntity{
+  Code : string,
+  Name : string,  
+}
+
+export interface SubAccountType {
+  Code: string | null;
+  Name: string | null;
+  EnumType: string;
+}
+
+
+export interface PlanCuentasRequest{
+  token : string,
+  accountingPeriod : string,
+  acceptEntries : string,
+
+}
