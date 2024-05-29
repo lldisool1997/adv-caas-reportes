@@ -19,17 +19,17 @@ export class SidenavComponent {
 
   menuNav = [
     {name: "Home", route: "home", icon: "home"},
-    {name: "Asiento RV", icon: "category", children: [
+    {name: "Asiento RV", icon: "assured_workload", children: [
       {
-        name: "Asiento RV Contado", route: 'asiento-rv-contado', icon: "production_quantity_limits"
+        name: "Asiento RV Contado", route: 'asiento-rv-contado', icon: "monetization_on"
       },
       {
-        name: "Asiento RV Credito", route: 'asiento-rv-credito', icon: "production_quantity_limits"
+        name: "Asiento RV Credito", route: 'asiento-rv-credito', icon: "payment"
       }
     ]
 
     },
-    {name: "Asientos RC", route: "asiento-rc", icon: "production_quantity_limits"}
+    {name: "Asientos RC", route: "asiento-rc", icon: "account_balance"}
   ]
 
   constructor(media : MediaMatcher){

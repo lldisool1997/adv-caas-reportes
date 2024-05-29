@@ -1,11 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, Query, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { AsientoRcRequest, dataAsientosRC } from 'src/app/core/models/asientos-rc/asiento-rc-request';
 import { AsientoRcService } from 'src/app/modules/shared/services/asiento-rc.service';
+import { EnviarAsientoRCComponent } from '../enviar-asiento-rc/enviar-asiento-rc.component';
 
 @Component({
   selector: 'app-asiento-rc',
@@ -34,16 +36,13 @@ export class AsientoRcComponent implements OnInit {
     private asientoRcService : AsientoRcService, 
     private toast : ToastrService,
     private fb: FormBuilder,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    public dialog : MatDialog
   ){
 
   }
 
   ngOnInit(): void {    
-    const token = localStorage.getItem("token");
-    if(token){
-      this.formulario.get("token")?.setValue(String(token));  
-    }
   }
 
   obtenerToken():void{
@@ -55,7 +54,7 @@ export class AsientoRcComponent implements OnInit {
       if(response.metadata[0].code == "00"){
         this.toast.success(response.metadata[0].message,'Asientos Compras Dia') 
         this.formulario.get("token")?.setValue(String(response.response['token']));  
-        localStorage.setItem("token", String(response.response['token']));      
+        localStorage.setItem("token", "genToken");          
 
       }else{
 
@@ -94,9 +93,18 @@ export class AsientoRcComponent implements OnInit {
 
   }
 
+  openEnviarAasinet(){
+    const vfecha = this.datePipe.transform(this.formulario.get("fecha")?.value, 'ddMMyyyy');
+    const periodo = vfecha?.slice(2);
+    const dialogRef = this.dialog.open(EnviarAsientoRCComponent, {
+      width: '650px',
+      data: {fecha: vfecha, periodo: periodo,externalSystem:'9', condicion:'3'},
+    });
 
-  enviarAasinet(): void{
-    alert("envia");
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
+    
   }
 
 }

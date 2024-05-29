@@ -23,6 +23,7 @@
 
         <div class="w-1/2 flex p-2.5 space-x-2.5">
           <button mat-raised-button color="primary" [disabled]="statusLoadingToken" (click)="obtenerToken()">
+            <mat-icon>vpn_key</mat-icon>
             <ng-container *ngIf="statusLoadingToken">
                 Generando token
             </ng-container>
@@ -30,8 +31,9 @@
                 Generar Token
             </ng-container>
            </button>
-          <button mat-raised-button color="primary" (click)="buscarAsientoDia()">Buscar Asiento Dia</button>
-          <button mat-raised-button color="primary" (click)="enviarAasinet()" [disabled]="!formulario.get('token')?.value">Enviar Aasinet</button>
+          <button mat-raised-button color="primary" (click)="buscarAsientoDia()"><mat-icon>query_stats</mat-icon>Buscar Asiento Dia</button>
+        <!--<button mat-raised-button color="primary" (click)="openEnviarAasinet()" [disabled]="!formulario.get('token')?.value">Enviar Aasinet</button>-->
+          <button mat-raised-button color="primary" (click)="openEnviarAasinet()"><mat-icon>outgoing_mail</mat-icon>Envio Aasinet</button>
         </div>
         
       </mat-card-header>
