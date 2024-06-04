@@ -7,8 +7,8 @@
                 <mat-form-field appearance="fill">
                     <mat-label>Fecha</mat-label>
                     <input matInput [matDatepicker]="picker" placeholder="Elija una fecha" formControlName="fecha">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-datepicker-toggle matIconSuffix  [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
                 </mat-form-field>           
             </div>
     
@@ -21,26 +21,29 @@
        
         
 
-        <div class="w-1/2 flex p-2.5 space-x-2.5">
-          <button mat-raised-button color="accent" [disabled]="statusLoadingToken" (click)="obtenerToken()">
+        <div class="w-1/2 p-1.5 space-x-2.5">
+          <button mat-raised-button class="btn-gen-token" [disabled]="statusLoadingToken" (click)="obtenerToken()">
             <mat-icon>vpn_key</mat-icon>
             <ng-container *ngIf="statusLoadingToken">
                 Generando token
             </ng-container>
             <ng-container *ngIf="!statusLoadingToken">
-                Generar Token
+                Token
             </ng-container>
            </button>
-          <button mat-raised-button color="primary" (click)="buscarAsientoDia()"><mat-icon>query_stats</mat-icon>Buscar Asiento Dia</button>
-        <button mat-raised-button color="primary" (click)="openEnviarAasinet()" [disabled]="!formulario.get('token')?.value">Enviar Aasinet</button>
+          <button mat-raised-button color="primary" (click)="buscarAsientoDia()"><mat-icon>query_stats</mat-icon>Busqueda</button>
+          <button  mat-raised-button color="primary" (click)="openEnviarAasinet()" [disabled]="!formulario.get('token')?.value"> <mat-icon>send</mat-icon>AAsinet</button>
+
+        <!--<button class="p-0.5" mat-fab color="primary" (click)="openEnviarAasinet()" [disabled]="!formulario.get('token')?.value">
+            <mat-icon>send</mat-icon>
+          </button>-->          
         </div>
         
       </mat-card-header>
     </form>
 
-    <div *ngIf="statusLoading" class="flex items-center justify-center">
-        <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mr-2"></div>
-        Cargango info
+    <div *ngIf="statusLoading" class="flex items-center justify-center"> 
+        <mat-spinner ></mat-spinner>
     </div>
 
     <div *ngIf="!statusLoading">
@@ -92,8 +95,23 @@
             </table>
             <mat-paginator #paginador [pageSizeOptions]="[10, 30, 50]" showFirstLastButtons> </mat-paginator>
         </mat-card-content>
-        <mat-card-footer></mat-card-footer>
-    </div>
-   
-    
+        <mat-card-footer>
+            <div style="display: flex; justify-content: space-evenly;">                
+                <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-black-500 dark:text-black-400 sm:mt-0">
+                    <li>
+                        <span class="me-4 md:me-6">Cantidad Proveedores:</span>
+                    </li>
+                    <li>
+                        <span class="me-4 md:me-6">{{cantidad}}</span>
+                    </li>
+                    <li>
+                        <span class="me-4 md:me-6">Total:</span>
+                    </li>
+                    <li>
+                        <span class="me-4 md:me-6">{{total}}</span>
+                    </li>
+                </ul>
+            </div>
+        </mat-card-footer>        
+    </div>   
 </mat-card>

@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Envio Asiento Compras Diario</h2>
+<h2 mat-dialog-title>Envio Asiento Compras Diario - {{fechaTituloString}}</h2>
 <mat-dialog-content>
     <form [formGroup]="formulario">
         <div class="space-y-4">
@@ -20,13 +20,13 @@
     </form>
 </mat-dialog-content>
 <mat-dialog-actions class="flex justify-end space-x-2">
-    <button mat-flat-button color="primary" (click)="sendGetPlanCuentas()">
+    <button mat-flat-button class="btn-enviar" (click)="sendGetPlanCuentas()">
         <mat-icon>send</mat-icon> 
         <span>Enviar Asiento</span>
     </button>
 
-    <button mat-flat-button color="warn" class="flex space-x-1">
+    <button mat-flat-button class="btn-cancel" [class.clicked]="cancelClicked" (click)="onCancelClick()">
         <mat-icon>cancel</mat-icon> 
-        <span>Cancelar</span>
+        <span>  {{ cancelButtonText }}</span>
     </button>
 </mat-dialog-actions>

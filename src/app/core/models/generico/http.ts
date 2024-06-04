@@ -14,6 +14,7 @@ export type HttpResponseList<T, K extends string> = {
 export type HttpResponse<T, K extends string> = {
   metadata: Metadata[];
   response: Response<T, K>;
+
 };
 
 // Tipo que define a estrutura da resposta
@@ -24,7 +25,14 @@ export type Response<T, K extends string> = {
 // Tipo que define a estrutura de uma lista de respostas
 export type ResponseList<T, K extends string> = {
   [key in K]: T[];
+    //OPCIONALES
+}
+& {
+  cantProveedor?: number;
+  total?: string;
 };
+
+;
 
 export type HttpResponseAAsinet<T, K extends string> = {
   code: string;

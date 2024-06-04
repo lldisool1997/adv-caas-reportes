@@ -1,3 +1,22 @@
 .uppercase {
     text-transform: uppercase;
 }
+
+.btn-cancel {
+  background-color: #F92A82;
+  color: white;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.btn-enviar{
+    background-color: #137547;
+    color: white;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.btn-cancel.clicked {
+    background-color: #ff002b;
+    color: #f8fafc;
+}

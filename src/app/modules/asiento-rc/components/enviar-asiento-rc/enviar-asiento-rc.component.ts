@@ -1,10 +1,13 @@
 import { Component, INJECTOR, Inject, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { requestAAsinet } from 'src/app/core/models/asientos-rc/asiento-rc-request';
 import { ApiResponse, ApiResult, PlanCuentasRequest } from 'src/app/core/models/generico/http';
 import { SendAsientosService } from 'src/app/modules/shared/services/send-asientos.service';
+import { AsientoRcComponent } from '../asiento-rc/asiento-rc.component';
+import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-enviar-asiento-rc',
@@ -16,34 +19,46 @@ export class EnviarAsientoRCComponent {
   responseData: ApiResponse<ApiResult> | null;
 
   private sendAsientos = inject(SendAsientosService);
-  private toast = inject(ToastrService)  
+  private toast = inject(ToastrService)
 
   formulario: FormGroup;  
+  cancelClicked: boolean = false;
+  cancelButtonText: string = 'Cancel';
+  fechaTituloString: string = ''; // Declare fechaTituloString
 
     constructor(
       @Inject(MAT_DIALOG_DATA) public data: any,
 
-      private formAsi: FormBuilder
+      private formAsi: FormBuilder,
+      public dialogRef : MatDialogRef<AsientoRcComponent>,
+      private datePipe: DatePipe
     
     ){
       this.formulario = this.formAsi.group({
         fecha: [{value : '', disabled: true}],
         periodo: [{value : '', disabled: true}],
-        descripcion: [''],
+        descripcion: [{value : '', disabled: true}],
       });
-
-      console.log(data);
       this.setFormData(data);
-      this.responseData = null; // Inicialización en el constructor 
+      this.responseData = null; // Inicialización en el constructor      
 
     }
 
-    setFormData(data: any) {
+    setFormData(data: any) {      
+     
       this.formulario.patchValue({
         fecha: data.fecha,
         periodo: data.periodo,
-        descripcion: ''
+        descripcion: data.descripcion
       });
+
+      const day = data.fecha.substring(0, 2);
+      const month = data.fecha.substring(2, 4);
+      const year = data.fecha.substring(4, 8);
+
+      // Construct the formatted date string
+      this.fechaTituloString = `${day}.${month}.${year}`;
+      
     }
 
     getPayload(): requestAAsinet{
@@ -73,8 +88,22 @@ export class EnviarAsientoRCComponent {
         
         if(this.responseData.code == '0000'){
           this.toast.success(this.responseData.Messages);
+          Swal.fire({           
+            icon: "success",
+            title: 'AAsinet - CAAS',
+            text: this.responseData.Messages,
+            showConfirmButton: false,
+            timer: 2500
+          });
+
+          this.dialogRef.close(true);
 
         }else{
+          Swal.fire({
+            icon: "error",
+            title: 'AAsinet - CAAS',
+            text: this.responseData.Messages           
+          });
           this.toast.error(this.responseData.Messages);
         }
 
@@ -90,13 +119,41 @@ export class EnviarAsientoRCComponent {
 
         if(this.responseData.code == '0000'){
           this.toast.success(this.responseData.Messages);
+          Swal.fire({           
+            icon: "success",
+            title: 'AAsinet - CAAS',
+            text: this.responseData.Messages,
+            showConfirmButton: false,
+            timer: 2500
+          });
+
+          this.dialogRef.close();
 
         }else{
+          Swal.fire({
+            icon: "error",
+            title: 'AAsinet - CAAS',
+            text: this.responseData.Messages           
+          });
           this.toast.error(this.responseData.Messages);
         }
+
 
       });
       
 
+    }
+
+    onCancelClick(): void {
+      if (!this.cancelClicked) {
+        this.cancelClicked = true;
+        this.cancelButtonText = 'Confirmo salir del formulario';
+      } else {
+        this.closeDialog();
+      }
+    }
+
+    closeDialog(): void {
+      this.dialogRef.close();
     }
 }

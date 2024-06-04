@@ -8,16 +8,25 @@ import { ToastrService } from 'ngx-toastr';
 import { AsientoRcRequest, dataAsientosRC } from 'src/app/core/models/asientos-rc/asiento-rc-request';
 import { AsientoRcService } from 'src/app/modules/shared/services/asiento-rc.service';
 import { EnviarAsientoRCComponent } from '../enviar-asiento-rc/enviar-asiento-rc.component';
+import { timeout } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-asiento-rc',
   templateUrl: './asiento-rc.component.html',
-  styleUrls: ['./asiento-rc.component.scss']
+  styleUrls: ['./asiento-rc.component.scss'],
 })
 export class AsientoRcComponent implements OnInit {  
 
   /*paginador = Query("paginador");*/
   @ViewChild('paginador') paginator!: MatPaginator;
+
+  cantidad! : number;
+  total! : string;
+
   
 
   formulario = this.fb.group({
@@ -85,31 +94,49 @@ export class AsientoRcComponent implements OnInit {
         let lisAssiRC = response.response['asientos'];
         lisAssiRC.forEach((el : dataAsientosRC) => {
           dataAssiRC.push(el);
-        })
-        this.dataSource = new MatTableDataSource<dataAsientosRC>(dataAssiRC);        
-        this.dataSource.paginator = this.paginator;
+        });
 
+        setTimeout(()=>{
+          this.cantidad = Number(response.response.cantProveedor);
+          this.total = String(response.response.total);
+          this.dataSource = new MatTableDataSource<dataAsientosRC>(dataAssiRC);        
+          this.dataSource.paginator = this.paginator;
+        }, 0)        
+
+      }else if(response.metadata[0].code == "01"){
+        this.toast.warning('Por favor genere el asiento en el sistema externo, actualmente no hay registros', 'Asientos Compras Dia');
       }else{
-
         this.toast.error('Error al cargar los datos', 'Mensaje de Error');
-
       }
     })
 
   }
 
   openEnviarAasinet(){
-    const vfecha = this.datePipe.transform(this.formulario.get("fecha")?.value, 'ddMMyyyy');
-    const periodo = vfecha?.slice(2);
-    const dialogRef = this.dialog.open(EnviarAsientoRCComponent, {
+    if(this.dataSource && this.dataSource.data.length > 0 ){
+      const vfecha = this.datePipe.transform(this.formulario.get("fecha")?.value, 'ddMMyyyy');
+      const periodo = vfecha?.slice(2);
+      const dialogRef = this.dialog.open(EnviarAsientoRCComponent, {
       width: '650px',
-      data: {fecha: vfecha, periodo: periodo,externalSystem:'9', condicion:'3'},
+      data: {fecha: vfecha, periodo: periodo,externalSystem:'9', condicion:'3', descripcion:'DCC - PROVISION CAAS ' +this.datePipe.transform(this.formulario.get("fecha")?.value, 'dd.MM.yyyy') },
+      disableClose: true
+    }); 
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+       console.log("debemos vaciar la tabla");
+       this.dataSource.data = [];
+       this.cantidad = 0;
+       this.total = '0.00';
+       this.formulario.get('fecha')?.setValue(new Date());
+      }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    }else{
+      this.toast.warning('Por favor visualice el asiento y verifique antes de enviar', 'Mensaje de Advertencia');
+
+    }
       
-    });
     
   }
-
 }
