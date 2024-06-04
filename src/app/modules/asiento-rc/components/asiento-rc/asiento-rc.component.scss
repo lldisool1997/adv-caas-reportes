@@ -17,3 +17,23 @@ mat-form-field{
     margin-right: 10px;
 
 }
+
+.table-empty {
+    text-align: center;
+    font-weight: 600;
+    margin: 1rem 0;
+    color: #595959;
+}
+
+tr .mat-header-row {
+    background-color: rgb(72 118 180);
+}
+  th.mat-header-cell {
+    color: #fff;
+}
+
+.table-empty_spinner {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}

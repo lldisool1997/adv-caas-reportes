@@ -25,14 +25,4 @@ export class AsientoRcService {
   handleError(error: HttpErrorResponse): Observable<never> {
     return throwError(() => error);
   }
-
-  getToken() : Observable<HttpResponse<dataToken, 'token'>>{
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    const endpoint = `${apiUrlAssinet}/generar-token`;
-    return this.http.get<HttpResponse<dataToken, 'token'>>(endpoint,{ headers }).pipe(catchError(this.handleError));
-  }
-
-
 }

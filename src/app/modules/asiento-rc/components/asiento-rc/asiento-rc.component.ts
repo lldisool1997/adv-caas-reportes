@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SendAsientosService } from 'src/app/modules/shared/services/send-asientos.service';
 
 @Component({
   selector: 'app-asiento-rc',
@@ -41,7 +42,8 @@ export class AsientoRcComponent implements OnInit {
   statusLoadingToken : boolean = false;
 
   constructor(
-    private asientoRcService : AsientoRcService, 
+    private asientoRcService : AsientoRcService,
+    private asientoSendGenerico : SendAsientosService, 
     private toast : ToastrService,
     private fb: FormBuilder,
     private datePipe: DatePipe,
@@ -62,7 +64,7 @@ export class AsientoRcComponent implements OnInit {
     this.statusLoadingToken = true;
     this.genTokenButtonText = 'Generando token';
     this.textIconToken = 'lock_reset';
-    this.asientoRcService.getToken().subscribe( response =>{
+    this.asientoSendGenerico.getToken().subscribe( response =>{
 
       this.statusLoadingToken = false;    
 
@@ -111,6 +113,9 @@ export class AsientoRcComponent implements OnInit {
         }, 0)        
 
       }else if(response.metadata[0].code == "01"){
+        this.dataSource.data = [];
+        this.cantidad = 0;
+        this.total = '0.00';
         this.toast.warning('Por favor genere el asiento en el sistema externo, actualmente no hay registros', 'Asientos Compras Dia');
       }else{
         this.toast.error('Error al cargar los datos', 'Mensaje de Error');
@@ -143,7 +148,7 @@ export class AsientoRcComponent implements OnInit {
       }
     });
 
-    }else{
+    }else{     
       this.toast.warning('Por favor visualice el asiento y verifique antes de enviar', 'Mensaje de Advertencia');
 
     }
