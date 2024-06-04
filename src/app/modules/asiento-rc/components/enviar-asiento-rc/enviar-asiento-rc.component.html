@@ -21,8 +21,8 @@
 </mat-dialog-content>
 <mat-dialog-actions class="flex justify-end space-x-2">
     <button mat-flat-button class="btn-enviar" (click)="sendGetPlanCuentas()">
-        <mat-icon>send</mat-icon> 
-        <span>Enviar Asiento</span>
+        <mat-icon>{{textIconAAsient}}</mat-icon>        
+        {{enviarAAsinet}}
     </button>
 
     <button mat-flat-button class="btn-cancel" [class.clicked]="cancelClicked" (click)="onCancelClick()">

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, Query, ViewChild, inject } from '@angular/core';
+import { Component, ErrorHandler, OnInit, Query, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -26,8 +26,8 @@ export class AsientoRcComponent implements OnInit {
 
   cantidad! : number;
   total! : string;
-
-  
+  genTokenButtonText: string = 'Token';
+  textIconToken : string = 'vpn_key';
 
   formulario = this.fb.group({
     fecha: [new Date()],
@@ -38,7 +38,6 @@ export class AsientoRcComponent implements OnInit {
   dataSource! : MatTableDataSource<dataAsientosRC>;
 
   statusLoading: boolean = false;
-
   statusLoadingToken : boolean = false;
 
   constructor(
@@ -61,22 +60,30 @@ export class AsientoRcComponent implements OnInit {
 
   obtenerToken():void{
     this.statusLoadingToken = true;
+    this.genTokenButtonText = 'Generando token';
+    this.textIconToken = 'lock_reset';
     this.asientoRcService.getToken().subscribe( response =>{
 
-      this.statusLoadingToken = false;
+      this.statusLoadingToken = false;    
 
       if(response.metadata[0].code == "00"){
+
+        this.genTokenButtonText = 'token';
+        this.textIconToken = 'vpn_key';
         this.toast.success(response.metadata[0].message,'Asientos Compras Dia') 
         this.formulario.get("token")?.setValue(String(response.response['token']));  
         localStorage.setItem("token", String(response.response['token']));          
 
       }else{
-
         this.toast.error('Error al cargar los datos', 'Mensaje de Error');
+      } 
 
-      }     
-
-    })
+    },error =>{
+      this.genTokenButtonText = 'token';
+      this.textIconToken = 'vpn_key';
+      this.statusLoadingToken = false;
+      this.toast.error('Hubo problemas con el servidor',error.name)         
+    });
     
   }
 
@@ -108,7 +115,11 @@ export class AsientoRcComponent implements OnInit {
       }else{
         this.toast.error('Error al cargar los datos', 'Mensaje de Error');
       }
-    })
+    },error =>{
+      this.statusLoading = false;
+      this.toast.error('Hubo problemas con el servidor',error.name)
+      console.log(error);      
+    });
 
   }
 

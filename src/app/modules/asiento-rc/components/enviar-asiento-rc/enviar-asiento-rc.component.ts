@@ -24,6 +24,9 @@ export class EnviarAsientoRCComponent {
   formulario: FormGroup;  
   cancelClicked: boolean = false;
   cancelButtonText: string = 'Cancel';
+  enviarAAsinetLoading : boolean = false;
+  enviarAAsinet : string = 'Enviar Asiento';
+  textIconAAsient : string = 'forward_to_inbox';
   fechaTituloString: string = ''; // Declare fechaTituloString
 
     constructor(
@@ -82,11 +85,19 @@ export class EnviarAsientoRCComponent {
     };
 
     sendGetPlanCuentas():void{
+      this.enviarAAsinetLoading = true;
+      this.enviarAAsinet = 'Enviando asiento...';
+      this.textIconAAsient = 'cloud_sync';
+
       this.sendAsientos.senPlanCuentas(this.getPayloadPlanCuentas()).subscribe((data: ApiResponse<ApiResult>)=>{
 
         this.responseData = data;
+
+        this.enviarAAsinetLoading = false;
         
         if(this.responseData.code == '0000'){
+          this.enviarAAsinet = 'Enviar Asiento';
+          this.textIconAAsient = 'forward_to_inbox';
           this.toast.success(this.responseData.Messages);
           Swal.fire({           
             icon: "success",
@@ -99,6 +110,8 @@ export class EnviarAsientoRCComponent {
           this.dialogRef.close(true);
 
         }else{
+          this.enviarAAsinet = 'Enviar Asiento';
+          this.textIconAAsient = 'forward_to_inbox';
           Swal.fire({
             icon: "error",
             title: 'AAsinet - CAAS',
@@ -108,7 +121,13 @@ export class EnviarAsientoRCComponent {
         }
 
 
-      });
+      },error =>{   
+        this.enviarAAsinetLoading = false;        
+        this.enviarAAsinet = 'Enviar Asiento';
+        this.textIconAAsient = 'forward_to_inbox';
+        this.toast.error('Hubo problemas con el servidor',error.name)
+        console.log(error);      
+      }); 
 
     }
 
@@ -139,8 +158,10 @@ export class EnviarAsientoRCComponent {
         }
 
 
-      });
-      
+      },error =>{        
+        this.toast.error('Hubo problemas con el servidor',error.name)
+        console.log(error);      
+      });   
 
     }
 
