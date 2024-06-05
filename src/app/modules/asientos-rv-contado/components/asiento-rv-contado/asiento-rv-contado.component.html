@@ -16,11 +16,11 @@
         </mat-form-field>
     </div>
     <div class="w-1/2 p-1.5 space-x-2.5">
-      <button mat-raised-button color="warn" [disabled]="statusLoadingToken">
+      <button mat-raised-button color="warn" [disabled]="statusLoadingToken" (click)="obtenerToken()">
         <mat-icon>{{textIconToken}}</mat-icon>
         {{genTokenButtonText}}              
       </button>
-      <button mat-raised-button color="primary" ><mat-icon>query_stats</mat-icon>Busqueda</button>
+      <button mat-raised-button color="primary"  ><mat-icon>query_stats</mat-icon>Busqueda</button>
       <button  mat-raised-button class="btn-aasinet" [disabled]="!formulario.get('token')?.value"> <mat-icon>send</mat-icon>AAsinet</button>        
     </div>    
   </mat-card-content>
@@ -84,15 +84,23 @@
     <div  style="display: flex; justify-content: space-evenly;">                
       <ul class="flex-wrap items-center mt-3 text-sm font-medium dark:text-black-400 sm:mt-0">
           <li>
-              <span class="me-4 md:me-6">Ingresos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span>
-              <span class="me-4 md:me-6">1</span>
+            <span class="me-4 md:me-7">Diferencia</span>
+            <span class="me-4 md:me-6">:</span>
+            <span class="me-4 md:me-6">999999999.2000</span>
           </li>
           <li>
-            <span class="me-4 md:me-6">Total Debito&nbsp;:</span>
+              <span class="me-4 md:me-9">Ingresos</span>
+              <span class="me-4 md:me-6">:</span>
+              <span class="me-4 md:me-6">S/. 555555</span>
+          </li>
+          <li>
+            <span class="me-4 md:me-4">Total Debito</span>
+            <span class="me-4 md:me-6">:</span>
             <span class="me-4 md:me-6">1</span>
           </li>
           <li>
-            <span class="me-4 md:me-6">Total Debito&nbsp;:</span>
+            <span class="me-4 md:me-3">Total Credito</span>
+            <span class="me-4 md:me-6">:</span>
             <span class="me-4 md:me-6">1</span>
           </li>            
       </ul>
