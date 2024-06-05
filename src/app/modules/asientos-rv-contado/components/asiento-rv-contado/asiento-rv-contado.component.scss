@@ -1,0 +1,53 @@
+mat-card {
+  margin-bottom: 1rem;
+}
+
+mat-form-field{
+  width: 140%;
+}
+  
+mat-card-content {
+  display: flex;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  font-size: 15px;
+}.full-width{
+   width: 100%;
+}
+
+.btn-busqueda{
+  background-color: #38A3A5;
+  color: white; 
+  margin-right: 10px;
+}
+
+.btn-aasinet{
+  background-color: #2660A4;/*#C33149   197278  2660A4*/
+  color: white; 
+  margin-right: 10px;
+}
+
+.mat-mdc-header-row{
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+label {
+  font-weight: 600;
+  color: #6c6c6c;
+} 
+
+
+.table-empty {
+  text-align: center;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: #595959;
+}
+
+.table-empty_spinner {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+  

@@ -2,7 +2,6 @@
     <form [formGroup]="formulario">
     <h2 class="text-3xl font-bold mb-4 text-center">Asiento de Compras Diario</h2>
     <mat-card-header>
-
               
         <div class="w-1/5 flex p-2.5 space-x-2.5">
             <mat-form-field appearance="fill">
@@ -21,12 +20,12 @@
         </div>       
 
         <div class="w-1/2 p-1.5 space-x-2.5">
-          <button mat-raised-button class="btn-gen-token" [disabled]="statusLoadingToken" (click)="obtenerToken()">
+          <button mat-raised-button  color="warn" [disabled]="statusLoadingToken" (click)="obtenerToken()">
             <mat-icon>{{textIconToken}}</mat-icon>
             {{genTokenButtonText}}       
            </button>
-          <button mat-raised-button color="primary" (click)="buscarAsientoDia()"><mat-icon>query_stats</mat-icon>Busqueda</button>
-          <button  mat-raised-button color="primary" (click)="openEnviarAasinet()" [disabled]="!formulario.get('token')?.value"> <mat-icon>send</mat-icon>AAsinet</button>        
+          <button mat-raised-button color="primary"  (click)="buscarAsientoDia()"><mat-icon>query_stats</mat-icon>Busqueda</button>
+          <button  mat-raised-button class="btn-aasinet" (click)="openEnviarAasinet()" [disabled]="!formulario.get('token')?.value"> <mat-icon>send</mat-icon>AAsinet</button>        
         </div>
         
       </mat-card-header>

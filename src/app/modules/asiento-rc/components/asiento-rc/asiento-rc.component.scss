@@ -2,20 +2,16 @@ mat-form-field{
     width: 140%;
 }
 
-.mat-cell:nth-child(1),
-.mat-header-cell:nth-child(1){
-    flex: 0  0 6%;
-}
-.example-margin{
-    margin: 0 10px;
-}
-
-.btn-gen-token{
-    background-color: #197278;
-    color: white;
-    font-size: 16px;
+.btn-busqueda{
+    background-color: #38A3A5;
+    color: white; 
     margin-right: 10px;
+}
 
+.btn-aasinet{
+    background-color: #2660A4;/*#C33149   197278  2660A4*/
+    color: white; 
+    margin-right: 10px;
 }
 
 .table-empty {
@@ -24,11 +20,9 @@ mat-form-field{
     margin: 1rem 0;
     color: #595959;
 }
-
-tr .mat-header-row {
-    background-color: rgb(72 118 180);
-}
-  th.mat-header-cell {
+  
+.mat-mdc-header-row{
+    background-color: #3f51b5;
     color: #fff;
 }
 
