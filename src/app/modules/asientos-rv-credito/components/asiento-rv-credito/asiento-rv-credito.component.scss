@@ -1,42 +1,68 @@
 mat-card {
-    margin-bottom: 1rem;
-  }
+  margin-bottom: 1rem;
+}
   
-  mat-form-field{
-    width: 140%;
-  }
+mat-form-field{
+  width: 140%;
+}
+  
+.card_header {
+  display: flex;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  font-size: 15px;
+}.full-width{
+    width: 100%;
+}
+
+.btn-aasinet{
+  background-color: #2660A4;/*#C33149   197278  2660A4*/
+  color: white; 
+  margin-right: 10px;
+}
+
+.mat-mdc-header-row{
+  background-color: #3f51b5;
+  color: #fff;
+}
+  
+  
+.table-empty {
+  text-align: center;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: #595959;
+}
+
+.table-empty_spinner {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.dif{
+  color: red;
+  font-weight: bold;
+}
+
+.ingre{
+  color: green;
+  font-weight: bold;
+}
+  
+.debito{
+  color: orange;
+  font-weight: bold;
+}
+
+.credito{
+  color: orange;
+  font-weight: bold;
+}
+
+.texto-span{
+  color: black;
+  font-weight: bold;
+}
     
-  .card_header {
-    display: flex;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
-    font-size: 15px;
-  }.full-width{
-     width: 100%;
-  }
-  
-  .btn-aasinet{
-    background-color: #2660A4;/*#C33149   197278  2660A4*/
-    color: white; 
-    margin-right: 10px;
-  }
-  
-  .mat-mdc-header-row{
-    background-color: #3f51b5;
-    color: #fff;
-  }
-  
-  
-  .table-empty {
-    text-align: center;
-    font-weight: 600;
-    margin: 1rem 0;
-    color: #595959;
-  }
-  
-  .table-empty_spinner {
-    display: flex;
-    justify-content: center;
-    margin: 1rem 0;
-  }
     
