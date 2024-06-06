@@ -142,7 +142,7 @@ export class AsientoRvContadoComponent implements OnInit {
       const periodo = vfecha?.slice(2);
       const dialogRef = this.dialog.open(EnviarAsientoRvContadoComponent, {
       width: '650px',
-      data: {fecha: vfecha, periodo: periodo,externalSystem:'17', condicion:'1', descripcion:'DCC - PROVISION CAAS ' +this.datePipe.transform(this.formulario.get("fechaAsiento")?.value, 'dd.MM.yyyy') },
+      data: {fecha: vfecha, periodo: periodo,externalSystem:'17', condicion:'1', descripcion:'INGRESOS VENTAS CONTADO ' +this.datePipe.transform(this.formulario.get("fechaAsiento")?.value, 'dd.MM.yyyy') },
       disableClose: true
     }); 
 
