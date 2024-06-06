@@ -96,8 +96,11 @@ export class AsientoRcComponent implements OnInit {
   }
 
   buscarAsientoDia():void{
-    this.statusLoading = true;
-    const vfecha = this.datePipe.transform(this.formulario.get("fecha")?.value, 'ddMMyyyy');
+    this.statusLoading = true; 
+    this.dataSource = new MatTableDataSource<dataAsientos>([]); 
+    this.cantidad = 0;
+    this.total = '0.00';
+    const vfecha = this.datePipe.transform(this.formulario.get("fecha")?.value, 'ddMMyyyy');    
 
     this.asientoRcService.getAsientoRC({fecha:String(vfecha)}).subscribe(response=>{
       this.statusLoading = false;
@@ -119,7 +122,12 @@ export class AsientoRcComponent implements OnInit {
         }, 0)        
 
       }else if(response.metadata[0].code == "01"){
-        this.dataSource.data = [];
+
+        if (!this.dataSource) {
+          this.dataSource = new MatTableDataSource<dataAsientos>([]);
+        } else {
+          this.dataSource.data = [];
+        }      
         this.cantidad = 0;
         this.total = '0.00';
         this.toast.warning('Por favor genere el asiento en el sistema externo, actualmente no hay registros', 'Asientos Compras Dia');

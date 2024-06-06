@@ -1,1 +1,113 @@
-<p>asiento-rv-credito works!</p>
+<mat-card>
+    <h2 class="text-3xl font-bold mb-4 text-center">Asiento de Ingresos Credito</h2>
+    <mat-card-content class="card_header" [formGroup]="formularioCredito">
+      <div class="w-1/5 flex p-2.5 space-x-2.5">
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha Asiento</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Elija una fecha" formControlName="fechaAsiento">
+            <mat-datepicker-toggle matIconSuffix  [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+        </mat-form-field>           
+      </div>
+      <div class="w-2/5 flex p-2.5 space-x-2.5">
+          <mat-form-field appearance="fill" class="w-96">
+            <mat-label>Obtener Token</mat-label>         
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="token" [readonly] = "true">
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+      </div>
+      <div class="w-1/2 p-1.5 space-x-2.5">
+        <button mat-raised-button color="warn" [disabled]="statusLoadingToken" (click)="obtenerToken()">
+          <mat-icon>{{textIconToken}}</mat-icon>
+          {{genTokenButtonText}}              
+        </button>
+        <button mat-raised-button color="primary" (click) = "buscarAsientoCredito()" ><mat-icon>query_stats</mat-icon>Busqueda</button>
+        <button  mat-raised-button class="btn-aasinet" (click)="openEnviarAasinetCredito()" [disabled]="!formularioCredito.get('token')?.value"> <mat-icon>send</mat-icon>AAsinet</button>        
+      </div>    
+    </mat-card-content>
+  </mat-card>
+  
+  <mat-card>
+    <mat-card-content>
+      <table mat-table [dataSource]="dataSource" class="mat-cell">
+        <ng-container matColumnDef="accountCode">
+            <th mat-header-cell *matHeaderCellDef>AccountCode</th>
+            <td mat-cell *matCellDef="let element">{{element.accountCode}}</td>                
+        </ng-container>
+  
+        <ng-container matColumnDef="subAccountCode">
+            <th mat-header-cell *matHeaderCellDef>SubAccountCode</th>
+            <td mat-cell *matCellDef="let element">{{element.subAccountCode}}</td>                
+        </ng-container>
+  
+        <ng-container matColumnDef="fundcode">
+            <th mat-header-cell *matHeaderCellDef>Fundcode</th>
+            <td mat-cell *matCellDef="let element">{{element.fundcode}}</td>                
+        </ng-container>
+  
+        <ng-container matColumnDef="functionCode">
+            <th mat-header-cell *matHeaderCellDef>FunctionCode</th>
+            <td mat-cell *matCellDef="let element">{{element.functionCode}}</td>                
+        </ng-container>
+  
+        <ng-container matColumnDef="restriccionCode">
+            <th mat-header-cell *matHeaderCellDef>RestriccionCode</th>
+            <td mat-cell *matCellDef="let element">{{element.restriccionCode}}</td>                
+        </ng-container>
+  
+        <ng-container matColumnDef="entityValue">
+            <th mat-header-cell *matHeaderCellDef>EntityValue</th>
+            <td mat-cell *matCellDef="let element">{{element.entityValue}}</td>                
+        </ng-container>
+  
+        <ng-container matColumnDef="sendMemo">
+            <th mat-header-cell *matHeaderCellDef>SendMemo</th>
+            <td mat-cell *matCellDef="let element">{{element.sendMemo}}</td>                
+        </ng-container>
+  
+        <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef>Descripcion</th>
+            <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>                
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns : displayColumns;"></tr>             
+      </table>
+      <div class="table-empty"  *ngIf="!statusLoading && (!dataSource ||dataSource.data.length === 0)">
+          No se encuentran datos para mostrar
+      </div>
+      <div class="table-empty_spinner">
+          <mat-spinner *ngIf="statusLoading" diameter="80"></mat-spinner>
+      </div> 
+      <mat-paginator #paginador [pageSizeOptions]="[10, 30, 50]" showFirstLastButtons> </mat-paginator>    
+    </mat-card-content>
+    <mat-card-footer>
+      <div  style="display: flex; justify-content: space-evenly;">                
+        <ul class="flex-wrap items-center mt-3 text-sm font-medium dark:text-black-400 sm:mt-0">
+            <li>
+              <span class="me-4 md:me-7">Diferencia</span>
+              <span class="me-4 md:me-6">:</span>
+              <span class="me-4 md:me-6">{{diferencia == null ? '0.00' : diferencia}}</span>
+            </li>
+            <li>
+                <span class="me-4 md:me-9">Ingresos</span>
+                <span class="me-4 md:me-6">:</span>
+                <span class="me-4 md:me-6">{{ingresos == null ? 'S/. 0.00' : ingresos}}</span>
+            </li>
+            <li>
+              <span class="me-4 md:me-4">Total Debito</span>
+              <span class="me-4 md:me-6">:</span>
+              <span class="me-4 md:me-6">{{totalDebito == null ? 'S/. 0.00' : totalDebito}}</span>
+            </li>
+            <li>
+              <span class="me-4 md:me-3">Total Credito</span>
+              <span class="me-4 md:me-6">:</span>
+              <span class="me-4 md:me-6">{{totalCredito == null ? 'S/. 0.00' : totalCredito}}</span>
+            </li>            
+        </ul>
+    </div>
+    </mat-card-footer>
+  </mat-card>
+  

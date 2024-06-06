@@ -66,7 +66,7 @@ export class AsientoRvContadoComponent implements OnInit {
 
         this.genTokenButtonText = 'token';
         this.textIconToken = 'vpn_key';
-        this.toast.success(response.metadata[0].message,'Asientos Compras Dia') 
+        this.toast.success(response.metadata[0].message,'Asientos Ingresos Contado') 
         this.formulario.get("token")?.setValue(String(response.response['token']));  
         localStorage.setItem("token", String(response.response['token']));          
 
@@ -92,6 +92,11 @@ export class AsientoRvContadoComponent implements OnInit {
   buscarAsientoContado():void{
 
     this.statusLoading = true;
+    this.dataSource = new MatTableDataSource<dataAsientos>([]); 
+    this.ingresos = String('S/. 0.00');
+    this.diferencia = String('0.00');
+    this.totalDebito = String('S/. 0.00');
+    this.totalCredito = String('S/. 0.00');   
     this.asientoRVContService.getAsientosRVContado(this.sendPayloadAsientoRV()).subscribe(rpta =>{
 
       this.statusLoading = false;

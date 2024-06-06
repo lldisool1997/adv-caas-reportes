@@ -30,7 +30,7 @@
 </mat-card>
 
 <mat-card>
-  <mat-card-content>
+  <mat-card-content>   
     <table mat-table [dataSource]="dataSource" class="mat-cell">
       <ng-container matColumnDef="accountCode">
           <th mat-header-cell *matHeaderCellDef>AccountCode</th>
@@ -74,15 +74,15 @@
 
       <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
       <tr mat-row *matRowDef="let row; columns : displayColumns;"></tr>             
-    </table>
-    <div class="table-empty"  *ngIf="!statusLoading && (!dataSource ||dataSource.data.length === 0)">
-        No se encuentran datos para mostrar
-    </div>
-    <div class="table-empty_spinner">
-        <mat-spinner *ngIf="statusLoading" diameter="80"></mat-spinner>
-    </div> 
+    </table>  
     <mat-paginator #paginador [pageSizeOptions]="[10, 30, 50]" showFirstLastButtons> </mat-paginator>    
   </mat-card-content>
+  <div class="table-empty_spinner">
+    <mat-spinner *ngIf="statusLoading" diameter="80"></mat-spinner>
+  </div>
+  <div class="table-empty"  *ngIf="!statusLoading && (!dataSource ||dataSource.data.length === 0)">
+      No se encuentran datos para mostrar
+  </div>    
   <mat-card-footer>
     <div  style="display: flex; justify-content: space-evenly;">                
       <ul class="flex-wrap items-center mt-3 text-sm font-medium dark:text-black-400 sm:mt-0">
