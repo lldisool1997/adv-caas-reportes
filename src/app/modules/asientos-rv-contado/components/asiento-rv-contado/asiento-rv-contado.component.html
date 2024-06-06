@@ -11,8 +11,11 @@
     </div>
     <div class="w-2/5 flex p-2.5 space-x-2.5">
         <mat-form-field appearance="fill" class="w-96">
-          <mat-label>Obtener Token</mat-label>
-          <input matInput #input formControlName="token">
+          <mat-label>Obtener Token</mat-label>         
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="token" [readonly] = "true">
+          <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
         </mat-form-field>
     </div>
     <div class="w-1/2 p-1.5 space-x-2.5">
@@ -21,7 +24,7 @@
         {{genTokenButtonText}}              
       </button>
       <button mat-raised-button color="primary" (click) = "buscarAsientoContado()" ><mat-icon>query_stats</mat-icon>Busqueda</button>
-      <button  mat-raised-button class="btn-aasinet" [disabled]="!formulario.get('token')?.value"> <mat-icon>send</mat-icon>AAsinet</button>        
+      <button  mat-raised-button class="btn-aasinet" (click)="openEnviarAasinetContado()" [disabled]="!formulario.get('token')?.value"> <mat-icon>send</mat-icon>AAsinet</button>        
     </div>    
   </mat-card-content>
 </mat-card>

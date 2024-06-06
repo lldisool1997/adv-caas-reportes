@@ -6,7 +6,6 @@ import { requestAAsinet } from 'src/app/core/models/asientos-rc/asiento-rc-reque
 import { ApiResponse, ApiResult, PlanCuentasRequest } from 'src/app/core/models/generico/http';
 import { SendAsientosService } from 'src/app/modules/shared/services/send-asientos.service';
 import { AsientoRcComponent } from '../asiento-rc/asiento-rc.component';
-import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -33,8 +32,7 @@ export class EnviarAsientoRCComponent {
       @Inject(MAT_DIALOG_DATA) public data: any,
 
       private formAsi: FormBuilder,
-      public dialogRef : MatDialogRef<AsientoRcComponent>,
-      private datePipe: DatePipe
+      public dialogRef : MatDialogRef<AsientoRcComponent>  
     
     ){
       this.formulario = this.formAsi.group({
@@ -42,6 +40,8 @@ export class EnviarAsientoRCComponent {
         periodo: [{value : '', disabled: true}],
         descripcion: [{value : '', disabled: true}],
       });
+
+      console.log(data);
       this.setFormData(data);
       this.responseData = null; // Inicialización en el constructor      
 
@@ -67,12 +67,12 @@ export class EnviarAsientoRCComponent {
     getPayload(): requestAAsinet{
       return {
         token : localStorage.getItem("token")!,
-        externalSystem : '17',
+        externalSystem : this.formulario.get('externalSystem')?.value,
         postedPeriod : this.formulario.get('periodo')?.value,
         journalDate : this.formulario.get('fecha')?.value,
         description : this.formulario.get('descripcion')?.value,
         idAsiento : '',
-        condicion : '3',
+        condicion : this.formulario.get('condicion')?.value,
       }
     };
 

@@ -37,16 +37,21 @@ export class AsientoRvContadoComponent implements OnInit {
 	diferencia! : string;
 	totalDebito! : string;
 	totalCredito! : string;
+  hide: boolean = true;
 
   formulario = this.fb.group({
     fechaAsiento: [new Date()],
-    token: [{value: '', disabled: true}],
+    token: [''],
   });
 
   ngOnInit(): void {
     if(localStorage.getItem('token')){
       this.formulario.get('token')?.setValue(localStorage.getItem('token'));
     }
+  }
+
+  togglePasswordVisibility() {
+    this.hide = !this.hide;
   }
 
   obtenerToken():void{
@@ -145,7 +150,7 @@ export class AsientoRvContadoComponent implements OnInit {
       data: {fecha: vfecha, periodo: periodo,externalSystem:'17', condicion:'1', descripcion:'INGRESOS VENTAS CONTADO ' +this.datePipe.transform(this.formulario.get("fechaAsiento")?.value, 'dd.MM.yyyy') },
       disableClose: true
     }); 
-
+    
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
        console.log("debemos vaciar la tabla");

@@ -32,7 +32,7 @@ export class AsientoRcComponent implements OnInit {
 
   formulario = this.fb.group({
     fecha: [new Date()],
-    token: [{value: '', disabled: true}],
+    token: [''],
   });
 
   displayColumns : String[] = ['accountCode','subAccountCode','fundcode','functionCode','restriccionCode','entityValue','sendMemo','descripcion'];
@@ -40,6 +40,7 @@ export class AsientoRcComponent implements OnInit {
 
   statusLoading: boolean = false;
   statusLoadingToken : boolean = false;
+  hide: boolean = true;
 
   constructor(
     private asientoRcService : AsientoRcService,
@@ -59,6 +60,11 @@ export class AsientoRcComponent implements OnInit {
     }
 
   }
+
+  togglePasswordVisibility() {
+    this.hide = !this.hide;
+  }
+
 
   obtenerToken():void{
     this.statusLoadingToken = true;
