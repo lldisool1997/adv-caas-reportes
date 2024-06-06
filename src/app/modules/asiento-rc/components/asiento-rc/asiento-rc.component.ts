@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { AsientoRcRequest, dataAsientosRC } from 'src/app/core/models/asientos-rc/asiento-rc-request';
+import { AsientoRequest, dataAsientos } from 'src/app/core/models/asientos-rc/asiento-rc-request';
 import { AsientoRcService } from 'src/app/modules/shared/services/asiento-rc.service';
 import { EnviarAsientoRCComponent } from '../enviar-asiento-rc/enviar-asiento-rc.component';
 import { timeout } from 'rxjs';
@@ -36,7 +36,7 @@ export class AsientoRcComponent implements OnInit {
   });
 
   displayColumns : String[] = ['accountCode','subAccountCode','fundcode','functionCode','restriccionCode','entityValue','sendMemo','descripcion'];
-  dataSource! : MatTableDataSource<dataAsientosRC>;
+  dataSource! : MatTableDataSource<dataAsientos>;
 
   statusLoading: boolean = false;
   statusLoadingToken : boolean = false;
@@ -98,17 +98,17 @@ export class AsientoRcComponent implements OnInit {
       console.log(response);
       if(response.metadata[0].code == "00"){
         this.toast.success(response.metadata[0].message,'Asientos Compras Dia')       
-        const dataAssiRC : dataAsientosRC[] = [];
+        const dataAssiRC : dataAsientos[] = [];
 
         let lisAssiRC = response.response['asientos'];
-        lisAssiRC.forEach((el : dataAsientosRC) => {
+        lisAssiRC.forEach((el : dataAsientos) => {
           dataAssiRC.push(el);
         });
 
         setTimeout(()=>{
           this.cantidad = Number(response.response.cantProveedor);
           this.total = String(response.response.total);
-          this.dataSource = new MatTableDataSource<dataAsientosRC>(dataAssiRC);        
+          this.dataSource = new MatTableDataSource<dataAsientos>(dataAssiRC);        
           this.dataSource.paginator = this.paginator;
         }, 0)        
 

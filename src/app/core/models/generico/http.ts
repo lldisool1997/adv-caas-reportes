@@ -30,6 +30,10 @@ export type ResponseList<T, K extends string> = {
 & {
   cantProveedor?: number;
   total?: string;
+  diferencia? : string;
+  ingresos? : string;
+  totalDebito? : string;
+  totalCredito? : string; 
 };
 
 ;

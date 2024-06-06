@@ -1,8 +1,8 @@
-export interface AsientoRcRequest {
+export interface AsientoRequest {
     fecha? : String;
 }
 
-export interface dataAsientosRC {
+export interface dataAsientos {
     accountCode: string;
     subAccountCode: String;
     fundcode: string;

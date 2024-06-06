@@ -1,6 +1,6 @@
 <mat-card>
   <h2 class="text-3xl font-bold mb-4 text-center">Asiento de Ingresos Contado</h2>
-  <mat-card-content [formGroup]="formulario">
+  <mat-card-content class="card_header" [formGroup]="formulario">
     <div class="w-1/5 flex p-2.5 space-x-2.5">
       <mat-form-field appearance="fill">
         <mat-label>Fecha Asiento</mat-label>
@@ -20,7 +20,7 @@
         <mat-icon>{{textIconToken}}</mat-icon>
         {{genTokenButtonText}}              
       </button>
-      <button mat-raised-button color="primary"  ><mat-icon>query_stats</mat-icon>Busqueda</button>
+      <button mat-raised-button color="primary" (click) = "buscarAsientoContado()" ><mat-icon>query_stats</mat-icon>Busqueda</button>
       <button  mat-raised-button class="btn-aasinet" [disabled]="!formulario.get('token')?.value"> <mat-icon>send</mat-icon>AAsinet</button>        
     </div>    
   </mat-card-content>
@@ -86,22 +86,22 @@
           <li>
             <span class="me-4 md:me-7">Diferencia</span>
             <span class="me-4 md:me-6">:</span>
-            <span class="me-4 md:me-6">999999999.2000</span>
+            <span class="me-4 md:me-6">{{diferencia == null ? '0.00' : diferencia}}</span>
           </li>
           <li>
               <span class="me-4 md:me-9">Ingresos</span>
               <span class="me-4 md:me-6">:</span>
-              <span class="me-4 md:me-6">S/. 555555</span>
+              <span class="me-4 md:me-6">{{ingresos == null ? 'S/. 0.00' : ingresos}}</span>
           </li>
           <li>
             <span class="me-4 md:me-4">Total Debito</span>
             <span class="me-4 md:me-6">:</span>
-            <span class="me-4 md:me-6">1</span>
+            <span class="me-4 md:me-6">{{totalDebito == null ? 'S/. 0.00' : totalDebito}}</span>
           </li>
           <li>
             <span class="me-4 md:me-3">Total Credito</span>
             <span class="me-4 md:me-6">:</span>
-            <span class="me-4 md:me-6">1</span>
+            <span class="me-4 md:me-6">{{totalCredito == null ? 'S/. 0.00' : totalCredito}}</span>
           </li>            
       </ul>
   </div>

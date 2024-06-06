@@ -6,7 +6,7 @@ mat-form-field{
   width: 140%;
 }
   
-mat-card-content {
+.card_header {
   display: flex;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
