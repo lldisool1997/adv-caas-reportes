@@ -52,17 +52,17 @@
                     </ng-container>
                     <ng-container *ngIf="nav.children">
                         <mat-list >
-                            <mat-expansion-panel #parent [style]="'box-shadow: none'">
+                            <mat-expansion-panel #parent [style]="'box-shadow: none'" style="margin: 0; padding: 0;">
                                 <mat-expansion-panel-header class="full-width-panel" (click)="parent.toggle()" style="margin: 0; padding: 0; box-shadow: none;">
-                                    <a mat-list-item [routerLink]="nav.route" (click)="parent.toggle()" style="margin: 0; padding: 0; margin-left: 1.0rem;">
-                                      <mat-icon>{{ nav.icon }}</mat-icon>
+                                    <a mat-list-item [routerLink]="nav.route" (click)="parent.toggle()" >
+                                      <mat-icon class="mr-2.5">{{ nav.icon }}</mat-icon>
                                       <span class="pt-px">{{ nav.name }}</span>
                                     </a>
                                   </mat-expansion-panel-header>
-                              <mat-list *ngIf="nav.children" [@expandPanel]="parent.expanded">
+                              <mat-list *ngIf="nav.children" [@expandPanel]="parent.expanded" style="margin: 0; padding: 0;">
                                 <a mat-list-item class="ml-4" *ngFor="let child of nav.children" [routerLink]="child.route">
                                   <mat-icon class="mr-2.5">{{ child.icon }}</mat-icon>
-                                  <span class="pt-px">{{ child.name }}</span>
+                                  <span class="mb-2.5">{{ child.name }}</span>
                                 </a>
                               </mat-list>
                             </mat-expansion-panel>

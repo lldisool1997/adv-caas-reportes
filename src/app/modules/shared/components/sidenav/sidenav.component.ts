@@ -29,7 +29,8 @@ export class SidenavComponent {
     ]
 
     },
-    {name: "Asientos RC", route: "asiento-rc", icon: "account_balance"}
+    {name: "Asientos RC", route: "asiento-rc", icon: "account_balance"},
+    {name: "Log Asientos CAAS", route: "log-asientos-caas", icon: "list_alt"}
   ]
 
   constructor(media : MediaMatcher){

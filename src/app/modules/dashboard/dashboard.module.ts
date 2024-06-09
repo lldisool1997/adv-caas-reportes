@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AsientoRcModule } from '../asiento-rc/asiento-rc.module';
 import { AsientosRvContadoModule } from '../asientos-rv-contado/asientos-rv-contado.module';
 import { AsientosRvCreditoModule } from '../asientos-rv-credito/asientos-rv-credito.module';
+import { LogAsientosCaasModule } from '../log-asientos-caas/log-asientos-caas.module';
 
 
 
@@ -21,7 +22,8 @@ import { AsientosRvCreditoModule } from '../asientos-rv-credito/asientos-rv-cred
     SharedModule,
     AsientoRcModule,
     AsientosRvContadoModule,
-    AsientosRvCreditoModule
+    AsientosRvCreditoModule,
+    LogAsientosCaasModule
   ]
 })
 export class DashboardModule { }

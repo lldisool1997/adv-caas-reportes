@@ -1,0 +1,65 @@
+<mat-tab-group>
+    <mat-tab label="Log Asientos RC">
+      <div>
+        <mat-form-field>
+          <mat-label>Fecha Inicio</mat-label>
+          <input matInput [matDatepicker]="picker1">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Fecha Fin</mat-label>
+          <input matInput [matDatepicker]="picker2">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" >Buscar</button>
+  
+        <table mat-table class="mat-elevation-z8">
+          <!-- Número Column -->
+          <ng-container matColumnDef="numero">
+            <th mat-header-cell *matHeaderCellDef> Número </th>
+            <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+          </ng-container>
+  
+          <!-- Asiento Column -->
+          <ng-container matColumnDef="asiento">
+            <th mat-header-cell *matHeaderCellDef> Asiento </th>
+            <td mat-cell *matCellDef="let element"> {{element.asiento}} </td>
+          </ng-container>
+  
+          <!-- Fecha Column -->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+          </ng-container>
+  
+          <!-- Descripción Column -->
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+          </ng-container>
+  
+          <!-- Acciones Column -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button color="warn" >Eliminar</button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-tab>
+    <mat-tab label="Log Asientos RV Contado">
+      <!-- Contenido para Tab 2 -->
+    </mat-tab>
+    <mat-tab label="Log Asientos RV Contado">
+      <!-- Contenido para Tab 3 -->
+    </mat-tab>
+  </mat-tab-group>
+  
