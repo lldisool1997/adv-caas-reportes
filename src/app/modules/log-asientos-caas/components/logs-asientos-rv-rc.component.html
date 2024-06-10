@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group #matTabGroup (selectedTabChange) = "flagTabsUpdate()">
     <mat-tab label="Asientos RC">
         <mat-card>
             <h2 class="text-3xl font-bold mb-4 text-center">Log Asientos RC</h2>
@@ -14,10 +14,10 @@
                                     (monthSelected)="setMonthAndYear($event, formRC, 'periodoRC', dp1)"
                                     panelClass="example-month-picker">
                     </mat-datepicker>
-                  </mat-form-field>      
+                  </mat-form-field>                  
               </div>             
               <div class="w-1/2 p-1.5 space-x-2.5">              
-                <button mat-raised-button color="primary"><mat-icon>query_stats</mat-icon>Busqueda</button>                       
+                <button mat-raised-button color="primary" (click) = "buscarLogAsientos()"><mat-icon>query_stats</mat-icon>Busqueda</button>                       
               </div>    
             </mat-card-content>
         </mat-card>
@@ -74,7 +74,7 @@
                                 (monthSelected)="setMonthAndYear($event, formRVContado, 'periodoRVContado', dp2)"
                                 panelClass="example-month-picker">
                 </mat-datepicker>
-              </mat-form-field>      
+            </mat-form-field>      
           </div>             
           <div class="w-1/2 p-1.5 space-x-2.5">              
             <button mat-raised-button color="primary"><mat-icon>query_stats</mat-icon>Busqueda</button>                       
@@ -248,7 +248,14 @@
     
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+        </table>
+        <div class="table-empty"  *ngIf="!statusLoading && (!dataSource ||dataSource.data.length === 0)">
+            No se encuentran datos para mostrar
+        </div>
+        <div class="table-empty_spinner">
+            <mat-spinner *ngIf="statusLoading" diameter="80"></mat-spinner>
+        </div> 
+        <mat-paginator #paginador [pageSizeOptions]="[10, 30, 50]" showFirstLastButtons> </mat-paginator> 
     </mat-card-content>
 </mat-card> 
   

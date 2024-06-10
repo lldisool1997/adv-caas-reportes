@@ -17,8 +17,21 @@ mat-form-field{
 
 .example-month-picker .mat-calendar-period-button {
     pointer-events: none;
-  }
-  
-  .example-month-picker .mat-calendar-arrow {
+}
+
+.example-month-picker .mat-calendar-arrow {
     display: none;
-  }
+}
+
+.table-empty_spinner {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.table-empty {
+    text-align: center;
+    font-weight: 600;
+    margin: 1rem 0;
+    color: #595959;
+}
