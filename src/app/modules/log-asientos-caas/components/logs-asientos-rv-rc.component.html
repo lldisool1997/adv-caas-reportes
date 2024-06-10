@@ -77,7 +77,7 @@
             </mat-form-field>      
           </div>             
           <div class="w-1/2 p-1.5 space-x-2.5">              
-            <button mat-raised-button color="primary"><mat-icon>query_stats</mat-icon>Busqueda</button>                       
+            <button mat-raised-button color="primary" (click) = "buscarLogAsientos()"><mat-icon>query_stats</mat-icon>Busqueda</button>                       
           </div>    
         </mat-card-content>
     </mat-card>
@@ -139,7 +139,7 @@
               </mat-form-field>      
           </div>             
           <div class="w-1/2 p-1.5 space-x-2.5">              
-            <button mat-raised-button color="primary"><mat-icon>query_stats</mat-icon>Busqueda</button>                       
+            <button mat-raised-button color="primary" (click) = "buscarLogAsientos()"><mat-icon>query_stats</mat-icon>Busqueda</button>                       
           </div>    
         </mat-card-content>
     </mat-card>
@@ -188,7 +188,7 @@
 </mat-tab-group>
 <mat-card>
     <mat-card-content>
-        <table mat-table class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <!-- Número Column -->
             <ng-container matColumnDef="numero">
                 <th mat-header-cell *matHeaderCellDef> Número </th>
@@ -208,7 +208,7 @@
             </ng-container>
 
             <ng-container matColumnDef="fecha_asiento">
-                <th mat-header-cell *matHeaderCellDef> Fecha Registro  </th>
+                <th mat-header-cell *matHeaderCellDef> Fecha Asiento  </th>
                 <td mat-cell *matCellDef="let element"> {{element.fechaAsiento}} </td>
             </ng-container>
     
@@ -242,7 +242,9 @@
             <ng-container matColumnDef="acciones">
                 <th mat-header-cell *matHeaderCellDef> Acciones </th>
                 <td mat-cell *matCellDef="let element">
-                <button mat-button color="warn" >Eliminar</button>
+                    <button mat-mini-fab color="warn">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </td>
             </ng-container>
     

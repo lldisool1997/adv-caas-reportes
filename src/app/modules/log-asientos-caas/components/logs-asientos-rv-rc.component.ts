@@ -13,6 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { logAsientosCAASRequest } from 'src/app/core/models/asientos-rc/asiento-rc-request';
 import { DatePipe } from '@angular/common';
 import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
+import { ToastrService } from 'ngx-toastr';
 
 export const MY_FORMATS = {
   parse: {
@@ -25,27 +26,6 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
-
-interface Element {
-  numero: string;
-  fechaRegistro : string,
-  periodo : string,
-  fechaAsiento : string,
-  glosa : string,
-  ingresos : string,
-  totalDebito : string,
-  totalCredito : string
-  totalProveedor : number
-}
-const dataTEst: Element[] = [
-  {
-    numero: '1', fechaRegistro: '10-06-2024 09:56:32', periodo: '052024', 
-    fechaAsiento: '01-05-2024',glosa:'ASIENTO DE COMPRAS RC 2024-05-01',
-    ingresos:'0.00',totalDebito : '0.00',totalCredito: '0.00',totalProveedor : 1
-  }, 
-  // Más datos de ejemplo
-];
-
 
 @Component({
   selector: 'app-logs-asientos-rv-rc',
@@ -81,6 +61,7 @@ export class LogsAsientosRvRcComponent implements AfterViewInit  {
     private fb: FormBuilder,
     private logAsientos : LogAsientosCaasService,
     private cdr: ChangeDetectorRef, // Inyectar ChangeDetectorRef
+    private toast :ToastrService,
   ) {
 
     this.initializeForms();    
@@ -114,19 +95,23 @@ export class LogsAsientosRvRcComponent implements AfterViewInit  {
       switch (tabIndex) {
         case 0:
           this.tabCondicion = '3'; // Asientos RC
-          this.periodoTab = String(this.datePipe.transform(this.formRC.get('periodoRC')?.value,'MMyyyy'))
+          this.periodoTab = String(this.datePipe.transform(this.formRC.get('periodoRC')?.value,'MMyyyy'));
+          this.displayedColumns = ['numero', 'fecha_registro', 'periodo', 'fecha_asiento', 'descripcion', 'ingresos', 'total_proveedor', 'acciones'];
           break;
         case 1:
           this.tabCondicion = '1'; // Asientos RV Contado
-          this.periodoTab = String(this.datePipe.transform(this.formRVContado.get('periodoRVContado')?.value,'MMyyyy'))
+          this.periodoTab = String(this.datePipe.transform(this.formRVContado.get('periodoRVContado')?.value,'MMyyyy'));
+          this.displayedColumns = ['numero', 'fecha_registro', 'periodo', 'fecha_asiento', 'descripcion', 'ingresos', 'total_debito', 'total_credito','acciones'];
           break;
         case 2:
           this.tabCondicion = '2'; // Asientos RV Crédito
-          this.periodoTab = String(this.datePipe.transform(this.formRVCredito.get('periodoRVCredito')?.value,'MMyyyy'))
+          this.periodoTab = String(this.datePipe.transform(this.formRVCredito.get('periodoRVCredito')?.value,'MMyyyy'));
+          this.displayedColumns = ['numero', 'fecha_registro', 'periodo', 'fecha_asiento', 'descripcion', 'ingresos', 'total_debito', 'total_credito','acciones'];
           break;
         default:
           this.tabCondicion = '3'; // Valor predeterminado
           this.periodoTab = String(this.datePipe.transform(this.formRC.get('periodoRC')?.value,'MMyyyy'))
+          this.displayedColumns = ['numero', 'fecha_registro', 'periodo', 'fecha_asiento', 'descripcion', 'ingresos', 'total_proveedor', 'acciones'];
           break;
       }
       console.log("condicion asi "+this.tabCondicion);
@@ -170,7 +155,39 @@ export class LogsAsientosRvRcComponent implements AfterViewInit  {
     this.logAsientos.getAsientosLogs(this.sentPayloadLogs()).subscribe(rpta =>{
       this.statusLoading = false;    
       console.log(rpta);
+      if(rpta.metadata[0].code=='00'){
+        this.toast.success(rpta.metadata[0].message,'Log Asientos Clinica Ana Stahl');
+        const dataLogs : logAsientosCAAS[] = [];
 
+        let dataService = rpta.response['logs'];
+        dataService.forEach((el : logAsientosCAAS)=>{
+          dataLogs.push(el);
+        })
+
+        setTimeout(()=>{            
+          this.dataSource = new MatTableDataSource<logAsientosCAAS>(dataService);
+          if (this.paginator) {
+            this.dataSource.paginator = this.paginator;
+          }  
+         
+        }, 0)    
+
+      }else if(rpta.metadata[0].code == "01"){
+        this.toast.warning(rpta.metadata[0].message, 'Log Asientos Clinica Ana Stahl');
+        if (!this.dataSource) {
+          this.dataSource = new MatTableDataSource<logAsientosCAAS>([]);
+        } else {
+          this.dataSource.data = [];
+        }      
+
+      }else{
+        this.toast.error('Error al cargar los datos', 'Mensaje de Error');
+      }
+
+    },error =>{
+      this.statusLoading = false;
+      this.toast.error('Hubo problemas con el servidor',error.name)
+      console.log(error);      
     });
 
   }
