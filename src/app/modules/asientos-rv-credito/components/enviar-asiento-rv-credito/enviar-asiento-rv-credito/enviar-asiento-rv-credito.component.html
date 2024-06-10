@@ -1,1 +1,32 @@
-<p>enviar-asiento-rv-credito works!</p>
+<h2 mat-dialog-title class="text-center">Envio Asiento Ingresos Credito - {{fechaTituloString}}</h2>
+<mat-dialog-content>
+    <form [formGroup]="formulario">
+        <div class="space-y-4">
+            <mat-form-field class="w-full">
+                <mat-label>Fecha Asiento</mat-label>           
+                <input matInput placeholder="Fecha" required class="w-full" formControlName="fecha">                
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+                <mat-label>Periodo</mat-label>          
+                <input matInput placeholder="Periodo" required class="w-full" formControlName="periodo">                
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+                <mat-label>Descripcion RV Asiento</mat-label>           
+               <input matInput placeholder="Descripcion Asiento" required class="w-full uppercase" formControlName="descripcion">        
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-end space-x-2">
+    <button mat-flat-button class="btn-enviar" (click)="sendAsientoRVCreditoAAsinet()">
+        <mat-icon>{{textIconAAsient}}</mat-icon>        
+        {{enviarAAsinet}}
+    </button>
+
+    <button mat-flat-button class="btn-cancel" [class.clicked]="cancelClicked" (click)="onCancelClick()">
+        <mat-icon>cancel</mat-icon> 
+        <span>  {{ cancelButtonText }}</span>
+    </button>
+</mat-dialog-actions>
