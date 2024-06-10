@@ -21,14 +21,22 @@ export const MY_FORMATS = {
 };
 
 interface Element {
-  numero: number;
-  asiento: string;
-  fecha: string;
-  descripcion: string;
+  numero: string;
+  fechaRegistro : string,
+  periodo : string,
+  fechaAsiento : string,
+  glosa : string,
+  ingresos : string,
+  totalDebito : string,
+  totalCredito : string
+  totalProveedor : number
 }
 const dataTEst: Element[] = [
-  {numero: 1, asiento: 'A001', fecha: '2022-01-01', descripcion: 'Descripción 1'},
-  {numero: 2, asiento: 'A002', fecha: '2022-01-02', descripcion: 'Descripción 2'},
+  {
+    numero: '1', fechaRegistro: '10-06-2024 09:56:32', periodo: '052024', 
+    fechaAsiento: '01-05-2024',glosa:'ASIENTO DE COMPRAS RC 2024-05-01',
+    ingresos:'0.00',totalDebito : '0.00',totalCredito: '0.00',totalProveedor : 1
+  }, 
   // Más datos de ejemplo
 ];
 
@@ -63,7 +71,7 @@ export class LogsAsientosRvRcComponent {
     this.formRVCredito = this.initializeForm('periodoRVCredito');
   }
 
-  displayedColumns: string[] = ['numero', 'asiento', 'fecha', 'descripcion', 'acciones'];
+  displayedColumns: string[] = ['numero', 'fecha_registro', 'periodo', 'fecha_asiento','descripcion','ingresos','total_debito','total_credito','total_proveedor','acciones'];
   dataSource = new MatTableDataSource<Element>();
 
   initializeForm(dateControlName: string): FormGroup {

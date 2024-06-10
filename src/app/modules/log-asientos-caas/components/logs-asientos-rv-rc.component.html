@@ -196,21 +196,46 @@
             </ng-container>
     
             <!-- Asiento Column -->
-            <ng-container matColumnDef="asiento">
-                <th mat-header-cell *matHeaderCellDef> Asiento </th>
-                <td mat-cell *matCellDef="let element"> {{element.asiento}} </td>
+            <ng-container matColumnDef="fecha_registro">
+                <th mat-header-cell *matHeaderCellDef> Fecha Registro  </th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaRegistro}} </td>
             </ng-container>
     
             <!-- Fecha Column -->
-            <ng-container matColumnDef="fecha">
-                <th mat-header-cell *matHeaderCellDef> Fecha </th>
-                <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+            <ng-container matColumnDef="periodo">
+                <th mat-header-cell *matHeaderCellDef> Periodo </th>
+                <td mat-cell *matCellDef="let element"> {{element.periodo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fecha_asiento">
+                <th mat-header-cell *matHeaderCellDef> Fecha Registro  </th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaAsiento}} </td>
             </ng-container>
     
             <!-- Descripción Column -->
             <ng-container matColumnDef="descripcion">
                 <th mat-header-cell *matHeaderCellDef> Descripción </th>
-                <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.glosa}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ingresos">
+                <th mat-header-cell *matHeaderCellDef> Ingresos </th>
+                <td mat-cell *matCellDef="let element"> {{element.ingresos}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total_debito">
+                <th mat-header-cell *matHeaderCellDef> Total Debito </th>
+                <td mat-cell *matCellDef="let element"> {{element.totalDebito}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total_credito">
+                <th mat-header-cell *matHeaderCellDef> Total Credito </th>
+                <td mat-cell *matCellDef="let element"> {{element.totalCredito}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total_proveedor">
+                <th mat-header-cell *matHeaderCellDef> Total Proveedor </th>
+                <td mat-cell *matCellDef="let element"> {{element.totalProveedor}} </td>
             </ng-container>
     
             <!-- Acciones Column -->

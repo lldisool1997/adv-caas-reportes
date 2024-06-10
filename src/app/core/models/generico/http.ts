@@ -120,3 +120,15 @@ export interface PlanCuentasRequest{
   acceptEntries : string,
 
 }
+
+export interface logAsientosCAAS {
+  numero: string;
+  fechaRegistro : string,
+  periodo : string,
+  fechaAsiento : string,
+  glosa : string,
+  ingresos : string,
+  totalDebito : string,
+  totalCredito : string
+  totalProveedor? : number
+}
