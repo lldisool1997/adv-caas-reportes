@@ -1,0 +1,24 @@
+.card_header {
+    display: flex;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    font-size: 15px; 
+}.full-width{
+    width: 100%;
+}
+
+mat-card {
+    margin-bottom: 1rem;
+}
+
+mat-form-field{
+    width: 140%;
+}
+
+.example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+  }
+  
+  .example-month-picker .mat-calendar-arrow {
+    display: none;
+  }

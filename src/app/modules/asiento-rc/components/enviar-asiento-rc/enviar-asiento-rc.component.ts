@@ -42,7 +42,7 @@ export class EnviarAsientoRCComponent {
       });
 
       console.log(data);
-      this.setFormData(data);
+      this.setFormData(data);    
       this.responseData = null; // Inicialización en el constructor      
 
     }
@@ -67,12 +67,12 @@ export class EnviarAsientoRCComponent {
     getPayload(): requestAAsinet{
       return {
         token : localStorage.getItem("token")!,
-        externalSystem : this.formulario.get('externalSystem')?.value,
+        externalSystem : this.data.externalSystem,
         postedPeriod : this.formulario.get('periodo')?.value,
         journalDate : this.formulario.get('fecha')?.value,
         description : this.formulario.get('descripcion')?.value,
         idAsiento : '',
-        condicion : this.formulario.get('condicion')?.value,
+        condicion : this.data.condicion,
       }
     };
 
@@ -132,11 +132,17 @@ export class EnviarAsientoRCComponent {
     }
 
     sendAsientoRcAAsinet():void{
+      this.enviarAAsinetLoading = true;
+      this.enviarAAsinet = 'Enviando asiento...';
+      this.textIconAAsient = 'cloud_sync';
       this.sendAsientos.senAsientosGenerico(this.getPayload()).subscribe((data: ApiResponse<ApiResult>)=>{
-
         this.responseData = data;
 
+        this.enviarAAsinetLoading = false;      
+
         if(this.responseData.code == '0000'){
+          this.enviarAAsinet = 'Enviar Asiento';
+          this.textIconAAsient = 'forward_to_inbox';
           this.toast.success(this.responseData.Messages);
           Swal.fire({           
             icon: "success",
@@ -146,9 +152,11 @@ export class EnviarAsientoRCComponent {
             timer: 2500
           });
 
-          this.dialogRef.close();
+          this.dialogRef.close(true);
 
         }else{
+          this.enviarAAsinet = 'Enviar Asiento';
+          this.textIconAAsient = 'forward_to_inbox';
           Swal.fire({
             icon: "error",
             title: 'AAsinet - CAAS',
@@ -158,10 +166,13 @@ export class EnviarAsientoRCComponent {
         }
 
 
-      },error =>{        
+      },error =>{   
+        this.enviarAAsinetLoading = false;        
+        this.enviarAAsinet = 'Enviar Asiento';
+        this.textIconAAsient = 'forward_to_inbox';
         this.toast.error('Hubo problemas con el servidor',error.name)
         console.log(error);      
-      });   
+      }); 
 
     }
 
