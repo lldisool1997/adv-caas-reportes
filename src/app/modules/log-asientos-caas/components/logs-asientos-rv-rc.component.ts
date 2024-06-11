@@ -14,6 +14,8 @@ import { logAsientosCAASRequest } from 'src/app/core/models/asientos-rc/asiento-
 import { DatePipe } from '@angular/common';
 import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmacionComponent } from '../../shared/components/confirmacion/confirmacion.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -55,8 +57,12 @@ export class LogsAsientosRvRcComponent implements AfterViewInit  {
   periodoRVContado: FormControl = new FormControl(moment()); // Definir el control de fecha
   periodoRVCredito: FormControl = new FormControl(moment());
 
+  public dialog = inject(MatDialog);
+
   tabCondicion : string = '3';
   periodoTab : string = '';
+  externalSystem : string = '';
+  journalTypeCode :string = '';
   constructor(
     private fb: FormBuilder,
     private logAsientos : LogAsientosCaasService,
@@ -97,21 +103,29 @@ export class LogsAsientosRvRcComponent implements AfterViewInit  {
           this.tabCondicion = '3'; // Asientos RC
           this.periodoTab = String(this.datePipe.transform(this.formRC.get('periodoRC')?.value,'MMyyyy'));
           this.displayedColumns = ['numero', 'fecha_registro', 'periodo', 'fecha_asiento', 'descripcion', 'ingresos', 'total_proveedor', 'acciones'];
+          this.externalSystem = '9';
+          this.journalTypeCode = 'RC';
           break;
         case 1:
           this.tabCondicion = '1'; // Asientos RV Contado
           this.periodoTab = String(this.datePipe.transform(this.formRVContado.get('periodoRVContado')?.value,'MMyyyy'));
           this.displayedColumns = ['numero', 'fecha_registro', 'periodo', 'fecha_asiento', 'descripcion', 'ingresos', 'total_debito', 'total_credito','acciones'];
+          this.externalSystem = '17';
+          this.journalTypeCode = 'RV';
           break;
         case 2:
           this.tabCondicion = '2'; // Asientos RV Crédito
           this.periodoTab = String(this.datePipe.transform(this.formRVCredito.get('periodoRVCredito')?.value,'MMyyyy'));
           this.displayedColumns = ['numero', 'fecha_registro', 'periodo', 'fecha_asiento', 'descripcion', 'ingresos', 'total_debito', 'total_credito','acciones'];
+          this.externalSystem = '17';
+          this.journalTypeCode = 'RV';
           break;
         default:
           this.tabCondicion = '3'; // Valor predeterminado
           this.periodoTab = String(this.datePipe.transform(this.formRC.get('periodoRC')?.value,'MMyyyy'))
           this.displayedColumns = ['numero', 'fecha_registro', 'periodo', 'fecha_asiento', 'descripcion', 'ingresos', 'total_proveedor', 'acciones'];
+          this.externalSystem = '9';
+          this.journalTypeCode = 'RC';
           break;
       }
       console.log("condicion asi "+this.tabCondicion);
@@ -191,5 +205,28 @@ export class LogsAsientosRvRcComponent implements AfterViewInit  {
     });
 
   }
+
+  modalEliminarAsiento(dataAux: any){
+
+    console.log(dataAux);
+    const dateAsiento = dataAux.fechaAsiento.split('-');   
+    let periodYear = dateAsiento[2];
+    let periodMonth = dateAsiento[1];
+    let journalCode = dateAsiento[0];   
+
+    if(this.dataSource && this.dataSource.data.length > 0 ){
+      const dialogRef = this.dialog.open(ConfirmacionComponent, {
+        width: '650px',
+        data: {id: dataAux.numero, anio: periodYear, mes : periodMonth, dia : journalCode, externalSystem: this.externalSystem, journalTypeCode : this.journalTypeCode },
+        disableClose: true
+      }); 
+
+    }else{
+      this.toast.warning('Por favor visualice el asiento y verifique antes de enviar', 'Mensaje de Advertencia');
+    }
+
+  }
+
+
   
 }

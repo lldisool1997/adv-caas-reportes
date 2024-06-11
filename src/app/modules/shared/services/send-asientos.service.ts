@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { dataToken, requestAAsinet } from 'src/app/core/models/asientos-rc/asiento-rc-request';
+import { dataToken, logDeleteAAsientoRequest, requestAAsinet } from 'src/app/core/models/asientos-rc/asiento-rc-request';
 import { ApiResponse, ApiResult, PlanCuentasRequest, HttpResponse } from 'src/app/core/models/generico/http';
 import { enviroment } from 'src/enviroments/enviroment';
 
@@ -44,6 +44,16 @@ export class SendAsientosService {
     });
     const endpoint = `${apiUrlAssinet}/generar-token`;
     return this.http.get<HttpResponse<dataToken, 'token'>>(endpoint,{ headers }).pipe(catchError(this.handleError));
-  } 
+  }
+
+  eliminarAsiento(data : logDeleteAAsientoRequest) :  Observable<ApiResponse<ApiResult>>{
+    const endpoint = `${apiUrlAssinet}/asientos-delete`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post<ApiResponse<ApiResult>>(endpoint,data,{ headers });
+
+  }
 
 }

@@ -4,12 +4,14 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { MaterialModule } from './material.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmacionComponent } from './components/confirmacion/confirmacion.component';
 
 
 
 @NgModule({
   declarations: [
-    SidenavComponent
+    SidenavComponent,
+    ConfirmacionComponent
   ],
   exports:[
     SidenavComponent

@@ -32,3 +32,13 @@ export interface logAsientosCAASRequest{
     periodo : string,
     tipo? : string,
 }
+
+export interface logDeleteAAsientoRequest{
+    token : string,
+    externalSystem : string,
+    journalTypeCode : string,
+    periodYear : string,
+    periodMonth : string,
+    journalCode : string,
+    idLog : string
+  }
