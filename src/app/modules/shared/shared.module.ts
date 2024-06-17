@@ -10,11 +10,9 @@ import { ConfirmacionComponent } from './components/confirmacion/confirmacion.co
 
 @NgModule({
   declarations: [
-    SidenavComponent,
     ConfirmacionComponent
   ],
   exports:[
-    SidenavComponent
   ],
   imports: [
     CommonModule,

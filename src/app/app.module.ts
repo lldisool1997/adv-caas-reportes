@@ -9,6 +9,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 import localeEsPE from '@angular/common/locales/es-PE';
+import { SidenavComponent } from './modules/shared/components/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import localeEsPE from '@angular/common/locales/es-PE';
     AppRoutingModule,
     DashboardModule,
     BrowserAnimationsModule,
+    SidenavComponent,
     ToastrModule.forRoot()
   ],
   providers: [

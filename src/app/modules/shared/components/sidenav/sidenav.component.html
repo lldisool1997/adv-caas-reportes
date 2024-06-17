@@ -7,10 +7,20 @@
             </mat-icon>
         </button>
         <img src="../assets/images/logo.png" class="h-8 mx-2" alt="CAAS Logo" />
-        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">AAsinet - CAAS</span>
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">AdvE Reportes - CAAS</span>
         
         <div class="ml-auto">
-            <ul class="flex items-center">
+            <ul class="flex items-center gap-3">
+                <li style="font-size: 12px">
+                    <mat-form-field appearance="fill" class="mt-5" matTooltip="Seleccione el Periodo">
+                        <mat-label>Seleccione el Periodo</mat-label>
+                        <mat-select>
+                          <mat-option value="opcion1">Planif</mat-option>
+                          <mat-option value="opcion2">Opción 2</mat-option>
+                          <mat-option value="opcion3">Opción 3</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </li>
                 <li>
                     <button mat-icon-button>
                         <mat-icon>help_outline</mat-icon>
@@ -38,8 +48,8 @@
             <mat-nav-list>
                 <div class="profile-card">
                     <div class="header">
-                        <h2>Mikel Meza</h2>
-                        <h4>jmeza.sistemas@gmail.com</h4>
+                        <h2>Usuario CAAS</h2>
+                        <h4>correo.ejemplo@example.com</h4>
                     </div>                    
                 </div>
                 <mat-divider></mat-divider>
@@ -60,7 +70,7 @@
                                     </a>
                                   </mat-expansion-panel-header>
                               <mat-list *ngIf="nav.children" [@expandPanel]="parent.expanded" style="margin: 0; padding: 0;">
-                                <a mat-list-item class="ml-4" *ngFor="let child of nav.children" [routerLink]="child.route">
+                                <a mat-list-item class="ml-4" *ngFor="let child of nav.children" [routerLink]="nav.route + '/' +child.route">
                                   <mat-icon class="mr-2.5">{{ child.icon }}</mat-icon>
                                   <span class="mb-2.5">{{ child.name }}</span>
                                 </a>

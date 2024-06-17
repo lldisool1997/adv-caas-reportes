@@ -8,22 +8,26 @@ import { AsientoRcModule } from '../asiento-rc/asiento-rc.module';
 import { AsientosRvContadoModule } from '../asientos-rv-contado/asientos-rv-contado.module';
 import { AsientosRvCreditoModule } from '../asientos-rv-credito/asientos-rv-credito.module';
 import { LogAsientosCaasModule } from '../log-asientos-caas/log-asientos-caas.module';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
+    DashboardRoutingModule,
     SharedModule,
     AsientoRcModule,
     AsientosRvContadoModule,
     AsientosRvCreditoModule,
-    LogAsientosCaasModule
+    LogAsientosCaasModule,
+    CanvasJSAngularChartsModule
   ]
 })
 export class DashboardModule { }
