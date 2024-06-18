@@ -15,9 +15,7 @@
                     <mat-form-field appearance="fill" class="mt-5" matTooltip="Seleccione el Periodo">
                         <mat-label>Seleccione el Periodo</mat-label>
                         <mat-select>
-                          <mat-option value="opcion1">Planif</mat-option>
-                          <mat-option value="opcion2">Opción 2</mat-option>
-                          <mat-option value="opcion3">Opción 3</mat-option>
+                          <mat-option *ngFor="let periodo of periodos" [value]="periodo.ID" (onSelectionChange)="setPeriodo($event)">{{periodo.NAME}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                 </li>

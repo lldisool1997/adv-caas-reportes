@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared.module';
 import { MaterialModule } from '../../material.module';
+import { MigracionService } from 'src/app/servicios/migraciones/migracion.service';
+import { MatOptionSelectionChange } from '@angular/material/core';
 
 interface MenuNav{
   name: string, 
@@ -26,8 +28,9 @@ interface MenuNav{
       transition('true <=> false', animate('250ms ease-in-out')),
     ])],
 })
-export class SidenavComponent {
+export class SidenavComponent implements OnInit {
 
+  periodos? : {ID: string, NAME: string}[];
   modileQuery : MediaQueryList;
 
   menuNav : MenuNav[] = [
@@ -42,9 +45,22 @@ export class SidenavComponent {
     ]}
   ]
 
-  constructor(media : MediaMatcher){
+  constructor(media : MediaMatcher,
+    private migraciones :MigracionService
+  ){
     this.modileQuery = media.matchMedia('(max-width : 600px)');
 
+  }
+
+  ngOnInit(): void {
+      this.migraciones.getPeriodos().subscribe(data=>{
+        this.periodos = data;
+      })
+  }
+
+  setPeriodo(value: MatOptionSelectionChange<string>): void{
+    localStorage.setItem('periodo', value.source.value);
+    alert(value.source.value);
   }
   
 }
