@@ -16,7 +16,7 @@ export class MigracionService {
     return this.http.get<any>(`${url}/GetDataPeriodos`);
   }
 
-  getDataMigraciones(idPeriodo: number): Observable<any> {
+  getDataMigraciones(idPeriodo: string): Observable<any> {
     return this.http.get<any>(`${url}/GetDataResultEvaluaciones/${idPeriodo}`);
   }
 }

@@ -13,7 +13,7 @@ import { SidenavComponent } from './modules/shared/components/sidenav/sidenav.co
 
 @NgModule({
   declarations: [
-    AppComponent  
+    AppComponent
   ],
   imports: [
     BrowserModule,

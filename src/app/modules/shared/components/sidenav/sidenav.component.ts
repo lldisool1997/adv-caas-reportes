@@ -41,6 +41,9 @@ export class SidenavComponent implements OnInit {
       },
       {
         name: "Migrar Data", route: 'migrar-data', icon: "save_alt"
+      },
+      {
+        name: "Ver Data Evaluaciones", route: 'consultar-data', icon: "search"
       }
     ]}
   ]
@@ -60,7 +63,6 @@ export class SidenavComponent implements OnInit {
 
   setPeriodo(value: MatOptionSelectionChange<string>): void{
     localStorage.setItem('periodo', value.source.value);
-    alert(value.source.value);
   }
   
 }
