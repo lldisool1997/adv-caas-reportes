@@ -45,7 +45,7 @@ export class ConsultarDataComponent {
 
   getDataMigraciones(): void{
     const idPeriodo = String(localStorage.getItem('periodo'));
-    if(idPeriodo){
+    if(idPeriodo && idPeriodo != 'null'){
       const filas : number = parseInt(prompt("(SOLO DESARROLLADORES) Ingrese la cantidad de filas")!)
       this.statusLoading = true;
       this.migracionesService.getDataMigracionesFila(idPeriodo, filas).subscribe(rpta=>{
