@@ -46,9 +46,9 @@ export class ConsultarDataComponent {
   getDataMigraciones(): void{
     const idPeriodo = String(localStorage.getItem('periodo'));
     if(idPeriodo){
-      if(confirm("(SOLO DESARROLLADORES) Ingrese la cantidad de filas")){
+      const filas : number = parseInt(prompt("(SOLO DESARROLLADORES) Ingrese la cantidad de filas")!)
       this.statusLoading = true;
-      this.migracionesService.getDataMigraciones(idPeriodo).subscribe(rpta=>{
+      this.migracionesService.getDataMigracionesFila(idPeriodo, filas).subscribe(rpta=>{
         this.statusLoading = false;
         this.dataCargada = true;
         this.dataSource = new MatTableDataSource<MigracionesItem>(rpta);
@@ -56,7 +56,6 @@ export class ConsultarDataComponent {
           this.dataSource.paginator = this.paginator;
         });
       })
-      }
     }
     else{
       this.toast.warning("Debe seleccionar un Periodo")
