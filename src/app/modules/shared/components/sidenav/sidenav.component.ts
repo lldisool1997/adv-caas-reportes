@@ -7,6 +7,8 @@ import { SharedModule } from '../../shared.module';
 import { MaterialModule } from '../../material.module';
 import { MigracionService } from 'src/app/servicios/migraciones/migracion.service';
 import { MatOptionSelectionChange } from '@angular/material/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectionListChange } from '@angular/material/list';
 
 interface MenuNav{
   name: string, 
@@ -20,7 +22,7 @@ interface MenuNav{
   standalone: true,
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
-  imports: [CommonModule, RouterModule, SharedModule, MaterialModule],
+  imports: [CommonModule, RouterModule, SharedModule, MaterialModule, ReactiveFormsModule],
   animations: [
     trigger('expandPanel', [
       state('true', style({ height: '*' })),
@@ -31,7 +33,9 @@ interface MenuNav{
 export class SidenavComponent implements OnInit {
 
   periodos? : {ID: string, NAME: string}[];
+  planificaciones? : {ID: string, NAME: string}[];
   modileQuery : MediaQueryList;
+
 
   menuNav : MenuNav[] = [
     {name: "Dashboard", route: "dashboard", icon: "home"},
@@ -48,21 +52,45 @@ export class SidenavComponent implements OnInit {
     ]}
   ]
 
-  constructor(media : MediaMatcher,
-    private migraciones :MigracionService
+  form = this.fb.group({
+    periodoSelect: [0],
+    planificacionSelect: [0]
+  });
+
+  constructor(
+    media : MediaMatcher,
+    private migraciones :MigracionService,
+    private fb: FormBuilder
   ){
     this.modileQuery = media.matchMedia('(max-width : 600px)');
 
   }
 
   ngOnInit(): void {
-      this.migraciones.getPeriodos().subscribe(data=>{
-        this.periodos = data;
-      })
+    this.migraciones.getPlanificaciones().subscribe(planificaciones=>{
+      this.planificaciones = planificaciones;
+      this.form.get('planificacionSelect')?.setValue(parseInt(String(localStorage.getItem('stage'))));
+      if(localStorage.getItem('stage')){
+        const idStage : number = parseInt(localStorage.getItem('stage')!);
+        this.getPlanificaciones(idStage);
+      }
+    })
   }
 
-  setPeriodo(value: MatOptionSelectionChange<string>): void{
-    localStorage.setItem('periodo', value.source.value);
+  getPlanificaciones(value:number ){
+    this.migraciones.getPeriodos(value).subscribe(data=>{
+      this.periodos = data;
+      this.form.get('periodoSelect')?.setValue(parseInt(String(localStorage.getItem('periodo')))); 
+    })
+  }
+
+  setPeriodo(value : string): void{
+    localStorage.setItem('periodo', value);
+  }
+
+  setPlanificacion(value : number): void{
+    localStorage.setItem('stage', String(value));
+    this.getPlanificaciones(value);
   }
   
 }

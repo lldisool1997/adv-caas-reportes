@@ -9,16 +9,29 @@
         <img src="../assets/images/logo.png" class="h-8 mx-2" alt="CAAS Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">AdvE Reportes - CAAS</span>
         
-        <div class="ml-auto">
+        <div class="ml-auto"><form [formGroup]="form">
             <ul class="flex items-center gap-3">
                 <li style="font-size: 12px">
                     <mat-form-field appearance="fill" class="mt-5" matTooltip="Seleccione el Periodo">
-                        <mat-label>Seleccione el Periodo</mat-label>
-                        <mat-select>
-                          <mat-option *ngFor="let periodo of periodos" [value]="periodo.ID" (onSelectionChange)="setPeriodo($event)">{{periodo.NAME}}</mat-option>
+                        <mat-label>Seleccione la planificacion</mat-label>
+                        <mat-select formControlName="planificacionSelect"  (valueChange)="setPlanificacion($event)">
+                          <mat-option *ngFor="let planificacion of planificaciones"
+                           [value]="planificacion.ID" 
+                          >{{planificacion.NAME}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                 </li>
+                <li style="font-size: 12px">
+                    <mat-form-field appearance="fill" class="mt-5" matTooltip="Seleccione el Periodo">
+                        <mat-label>Seleccione el Periodo</mat-label>
+                        <mat-select formControlName="periodoSelect"  (valueChange)="setPeriodo($event)">
+                          <mat-option *ngFor="let periodo of periodos"
+                           [value]="periodo.ID" 
+                          >{{periodo.NAME}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </li>
+              
                 <li>
                     <button mat-icon-button>
                         <mat-icon>help_outline</mat-icon>
@@ -35,6 +48,7 @@
                     </mat-menu>
                 </li>
             </ul>
+        </form>
         </div>
     </mat-toolbar>
      <!-- termina toolbad-->

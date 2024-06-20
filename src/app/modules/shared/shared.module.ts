@@ -18,7 +18,7 @@ import { ConfirmacionComponent } from './components/confirmacion/confirmacion.co
     CommonModule,
     MaterialModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
     
   ]
 })

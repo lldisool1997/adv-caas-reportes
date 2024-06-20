@@ -29,7 +29,7 @@ export class ConsultarDataComponent {
     'CODIGO',
     'NOMBRE_KPI',
     'META',
-    'VALUE_COOR',
+    'VALUE_EVAL',
     'CUMPLE',
     'MEASURE_2',
     'MEASURE_3',
