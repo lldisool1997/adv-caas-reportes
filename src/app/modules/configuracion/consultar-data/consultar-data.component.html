@@ -15,9 +15,23 @@
             <input matInput (keyup)="applyFilter($event)">
           </mat-form-field>
         </div>
+
+        <div class="text-end">
+          <button mat-raised-button  color="primary" (click)="consultar()">Consultar</button>
+          <button mat-raised-button class="mx-2" color="primary" (click)="getDataMigraciones()">Traer data AdvE</button>
+          <button mat-raised-button color="success" (click)="exportToExcel()">Exportar a Excel</button>
+        </div>
+      </div>
+      <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
+        <div class="text-end">
+        
+        </div>
+        <div class="text-end">
+          {{fecha_registro}}, {{cantidad_regisros}} registros encontrados
+        </div>
       </div>
       <div class="overflow-x-auto mt-6">
-        <table mat-table [dataSource]="dataSource" matSort class="min-w-full leading-normal">
+        <table mat-table [dataSource]="dataSource" matSort class="min-w-full leading-normal" matSort>
           <ng-container matColumnDef="MES">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Mes</th>
             <td mat-cell *matCellDef="let element">{{element.MES}}</td>
