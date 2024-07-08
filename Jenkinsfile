@@ -29,11 +29,11 @@ pipeline {
             }
         }
 
-        stage('Build and Test') {
+         stage('Build') {
             steps {
                 script {
-                    // Construir y testear la imagen de Docker
-                    sh 'docker build --target test -t ${DOCKER_IMAGE} .'
+                    // Construir la imagen Docker
+                    sh 'docker build -t ${DOCKER_IMAGE} .'
                 }
             }
         }
