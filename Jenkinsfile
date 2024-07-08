@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'todo-app-jenkins:latest'
-        DOCKER_REPO = 'localhost:5000/todo-app-jenkins' // Cambia esto si usas un registro privado
+        DOCKER_IMAGE = 'caas-test-jenkins:latest'
+        DOCKER_REPO = 'localhost:5000/caas-test-jenkins' // Cambia esto si usas un registro privado
         GITHUB_CREDENTIALS_ID = 'dd39add3-52fb-4134-8775-9553352cb936' // ID de las credenciales en Jenkins
-        REPO_URL = 'github.com/lldisool1997/jenkins-todo-app' // ejemplo: github.com/lldisool1997/test-jenkins.git
-        TARGET_BRANCH = 'main'
+        REPO_URL = 'github.com/lldisool1997/adv-caas-reportes.git' // ejemplo: github.com/lldisool1997/test-jenkins.git
+        TARGET_BRANCH = 'develop'
     }
 
     stages {
@@ -54,7 +54,7 @@ pipeline {
                     // Desplegar la imagen en Docker Swarm
                     sh """
                     docker service rm test-llento-test || true
-                    docker service create --name test-llento-test --publish published=80,target=3000 --replicas=3 ${DOCKER_REPO}
+                    docker service create --name test-llento-test --publish published=9000,target=80 --replicas=3 ${DOCKER_REPO}
                     """
                 }
             }
